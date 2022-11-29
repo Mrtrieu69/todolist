@@ -1,0 +1,142 @@
+.wrapper {
+    padding: 0 12px;
+    width: 287px;
+    flex-shrink: 0;
+}
+
+.content {
+    padding: 12px 0;
+}
+
+.header {
+    display: flex;
+    margin-bottom: 10px;
+}
+
+.label {
+    padding: 0 6px;
+    border-radius: 4px;
+    margin-right: 4px;
+    font-weight: 600;
+    font-size: 1.4rem;
+
+    &.queue {
+        color: rgb(93, 23, 21);
+        background-color: rgb(255, 226, 221);
+    }
+
+    &.development {
+        color: rgb(64, 44, 27);
+        background: rgb(253, 236, 200);
+    }
+
+    &.done {
+        color: rgb(28, 56, 41);
+        background: rgb(219, 237, 219);
+    }
+}
+
+.item {
+    position: relative;
+    margin-bottom: 6px;
+
+    &:hover .card {
+        background-color: #ebecf0;
+    }
+
+    &:hover .controls {
+        opacity: 1;
+    }
+
+    &.adding .card {
+        background-color: #fff;
+        padding: 8px 10px;
+        display: flex;
+    }
+
+    &.hide {
+        display: none;
+    }
+}
+
+.card {
+    box-shadow: rgb(15 15 15 / 10%) 0px 0px 0px 1px,
+        rgb(15 15 15 / 10%) 0px 2px 4px;
+    border-radius: 4px;
+    cursor: pointer;
+    background-color: #fff;
+    transition: background-color 0.3s ease;
+}
+
+.task {
+    padding: 8px 10px;
+    width: calc(100% - 56px);
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.controls {
+    display: flex;
+    opacity: 0;
+    position: absolute;
+    color: rgba(55, 53, 47, 0.65);
+    border: 1px solid rgb(15 15 15 / 10%);
+    border-radius: 4px;
+    top: 6px;
+    right: 8px;
+    overflow: hidden;
+    transition: opacity 0.3s ease;
+}
+
+.icon {
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 24px;
+    height: 24px;
+    background-color: #fff;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+        background-color: #ebecf0;
+    }
+
+    &:first-child {
+        border-right: 1px solid rgb(15 15 15 / 10%);
+    }
+}
+
+.add {
+    padding: 6px;
+    transition: background-color 0.3s ease;
+    border-radius: 4px;
+    cursor: pointer;
+    color: rgba(55, 53, 47, 0.5);
+    display: flex;
+    align-items: center;
+
+    &:hover {
+        background-color: #ebecf0;
+    }
+}
+
+.plus {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 4px;
+}
+
+.add-icon {
+    display: flex;
+    justify-self: start;
+    align-items: center;
+    margin-right: 10px;
+}
+
+.input {
+    width: 100%;
+    font-size: 1.6rem;
+}

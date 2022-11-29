@@ -1,0 +1,25 @@
+.wrapper {
+    position: fixed;
+    inset: 0;
+    z-index: 999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.layout {
+    position: absolute;
+    inset: 0;
+    background: rgba(0 0 0 / 0.6);
+    animation: fade 0.3s ease;
+    z-index: -1;
+}
+
+@keyframes fade {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}

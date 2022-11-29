@@ -1,0 +1,248 @@
+.wrapper {
+    max-width: 1024px;
+    width: calc(100% - 48px);
+    height: 100vh;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    @media (min-width: 740px) {
+        justify-content: center;
+    }
+}
+
+.container {
+    width: 100%;
+    margin-top: 24px;
+
+    @media (min-width: 1024px) {
+        justify-content: center;
+    }
+}
+
+.header {
+    font-size: 2.6rem;
+    font-weight: 700;
+
+    @media (min-width: 740px) {
+        font-size: 3.6rem;
+    }
+}
+
+.item {
+    margin-bottom: 24px;
+}
+
+.card {
+    position: relative;
+}
+
+.link {
+    display: block;
+    height: 140px;
+    padding: 8px;
+    border-radius: 8px;
+    background: url("/assets/img/img-project.jpg") no-repeat center / cover;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    &.no-bg {
+        background-image: none;
+        border: 2px solid black;
+        cursor: pointer;
+
+        & .add {
+            width: 100%;
+            height: 100%;
+            color: #000;
+            font-size: 6rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    }
+}
+
+.title {
+    font-size: 2rem;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.disc {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.close {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 4px;
+    right: 4px;
+    font-size: 2.4rem;
+    transition: transform 0.3s ease;
+    z-index: 2;
+    color: #fff;
+    cursor: pointer;
+
+    &:hover {
+        transform: rotate(180deg);
+    }
+}
+
+// Modal form
+.form {
+    width: calc(100% - 24px);
+    background: #fff;
+    border-radius: 4px;
+    text-align: center;
+    padding: 24px;
+    animation: zoom-out 0.3s ease;
+
+    @media (min-width: 740px) and (max-width: 1023px) {
+        width: 60%;
+    }
+
+    @media (min-width: 1024px) {
+        width: 40%;
+    }
+}
+
+.form-title {
+    margin-top: 24px;
+}
+
+.form-group {
+    margin-top: 24px;
+    display: flex;
+    flex-direction: column;
+}
+
+.form-label {
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-bottom: 4px;
+    text-align: start;
+}
+
+.form-control {
+    background-color: #fafbfc;
+    border: none;
+    border-radius: 4px;
+    box-shadow: inset 0 0 0 2px #dfe1e6;
+    display: block;
+    line-height: 20px;
+    outline: none;
+    padding: 12px;
+    font-size: 1.4rem;
+    font-weight: 400;
+    color: #172b4d;
+
+    &.text-area {
+        resize: none;
+        width: 100%;
+        height: 84px;
+    }
+
+    &:hover {
+        background-color: #ebecf0;
+    }
+
+    &:focus {
+        background-color: #fff;
+        box-shadow: inset 0 0 0 2px #0079bf;
+    }
+}
+
+.form-submit {
+    display: block;
+    margin-top: 32px;
+    width: 100%;
+    background-color: #0079bf;
+    border-radius: 4px;
+    color: #fff;
+    padding: 12px 24px;
+    font-size: 1.4rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    user-select: none;
+
+    &:hover {
+        background-color: #026aa7;
+    }
+
+    &.disable {
+        background-color: rgba(9 30 66 / 0.04);
+        color: #a5adba;
+        pointer-events: none;
+    }
+}
+
+// Modal Delete
+.body-delete {
+    width: calc(100% - 24px);
+    background-color: #fff;
+    border-radius: 4px;
+    text-align: center;
+    padding: 12px;
+    animation: fade-down 0.3s ease;
+
+    @media (min-width: 740px) and (max-width: 1023px) {
+        width: 60%;
+    }
+
+    @media (min-width: 1024px) {
+        width: 30%;
+    }
+}
+
+.actions {
+    margin-top: 12px;
+    display: flex;
+    justify-content: center;
+    column-gap: 12px;
+
+    & .delete {
+        padding: 8px 12px;
+        background-color: red;
+        border-radius: 4px;
+        color: white;
+        cursor: pointer;
+    }
+
+    & .cancel {
+        padding: 8px 12px;
+        background-color: black;
+        border-radius: 4px;
+        color: white;
+        cursor: pointer;
+    }
+}
+
+// animations
+@keyframes zoom-out {
+    0% {
+        transform: scale(0);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes fade-down {
+    0% {
+        opacity: 0;
+        transform: translateY(-100%);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
