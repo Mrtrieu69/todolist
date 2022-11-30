@@ -14,11 +14,14 @@ const initialState = {
     ],
 };
 
-const getLocalStorage = JSON.parse(localStorage.getItem("projects"));
+const projectsFromLocalStorage = JSON.parse(localStorage.getItem("projects"));
 
-const projectReducer = (state = getLocalStorage || initialState, action) => {
+const projectReducer = (
+    state = projectsFromLocalStorage || initialState,
+    action
+) => {
     switch (action.type) {
-        case "ADD_PROJECT":
+        case "ADD_PROJECT": {
             const newList = [...state.list];
             newList.push(action.payload);
 
@@ -26,12 +29,13 @@ const projectReducer = (state = getLocalStorage || initialState, action) => {
                 ...state,
                 list: newList,
             };
-
-        case "DELETE_PROJECT":
+        }
+        case "DELETE_PROJECT": {
             return {
                 ...state,
                 list: state.list.filter((item) => item.id !== action.payload),
             };
+        }
         default:
             return state;
     }

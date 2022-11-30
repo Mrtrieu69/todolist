@@ -17,6 +17,11 @@
     color: #000;
     display: flex;
     align-items: center;
+    transition: color 0.3s ease;
+
+    &:hover {
+        color: #2383e2;
+    }
 }
 
 .icon {
@@ -54,10 +59,23 @@
 .title {
     display: flex;
     align-items: center;
-    margin-bottom: 32px;
+}
+
+.desc {
+    color: rgb(55, 53, 47);
+
+    & .separate {
+        display: inline-block;
+        background: rgba(135, 131, 120, 0.15);
+        color: #eb5757;
+        border-radius: 4px;
+        padding: 0 4px;
+        font-size: 85%;
+    }
 }
 
 .container {
+    margin-top: 24px;
     border-top: 2px solid #ccc;
     display: flex;
     overflow-y: auto;

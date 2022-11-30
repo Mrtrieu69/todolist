@@ -1,17 +1,44 @@
-import React from "react";
+import React, { useEffect } from "react";
 import classNames from "classnames/bind";
 import { Link } from "react-router-dom";
 import { FcHome } from "react-icons/fc";
 import { BsCheckLg } from "react-icons/bs";
+import { DragDropContext } from "react-beautiful-dnd";
+import { useParams } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
 
 import styles from "./Tasks.module.scss";
 import userImage from "../../assets/img/me.jpg";
 import banner from "../../assets/img/webb1.jpg";
 import { TaskList } from "./components";
+import { changeItemInMultiList } from "../../actions/tasks";
 
 const cx = classNames.bind(styles);
 
+const onDragEnd = (result, taskList, flag, dispatch) => {
+    if (!result.destination) return;
+    const { source, destination } = result;
+
+    dispatch(
+        changeItemInMultiList({
+            flag,
+            taskList,
+            source,
+            destination,
+        })
+    );
+};
+
 const Tasks = () => {
+    const { flag } = useParams();
+    const tasks = useSelector((state) => state.tasks);
+    const taskList = tasks[flag];
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        localStorage.setItem("tasks", JSON.stringify(tasks));
+    }, [tasks]);
+
     return (
         <div className={cx("wrapper")}>
             <header className={cx("header")}>
@@ -38,14 +65,29 @@ const Tasks = () => {
                     </span>
                     Task lisk
                 </h1>
+                <p className={cx("desc")}>
+                    Use this template to track your personal tasks.
+                </p>
+                <p className={cx("desc")}>
+                    Click <span className={cx("separate")}>+ New</span> to
+                    create a new task directly on this board.
+                </p>
                 <div className={cx("container")}>
-                    <TaskList status="queue" label="Queue" taskList={[]} />
-                    <TaskList
-                        status="development"
-                        label="Development"
-                        taskList={[]}
-                    />
-                    <TaskList status="done" label="Done 🙌" taskList={[]} />
+                    <DragDropContext
+                        onDragEnd={(result) =>
+                            onDragEnd(result, taskList, flag, dispatch)
+                        }
+                    >
+                        {Object.entries(taskList).map(([id, list]) => (
+                            <TaskList
+                                key={id}
+                                idList={id}
+                                status={list.status}
+                                label={list.label}
+                                taskList={list.list}
+                            />
+                        ))}
+                    </DragDropContext>
                 </div>
             </main>
         </div>

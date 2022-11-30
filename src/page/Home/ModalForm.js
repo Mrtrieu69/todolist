@@ -7,6 +7,7 @@ import { randomId, getFlag } from "../../utils";
 import styles from "./Home.module.scss";
 import { Modal } from "../../components";
 import { addNewProject } from "../../actions/project";
+import { addNewTaskList } from "../../actions/tasks";
 
 const cx = classNames.bind(styles);
 
@@ -29,6 +30,7 @@ const ModalForm = ({ onClose }) => {
                 path: `/tasks/${flag}`,
             })
         );
+        dispatch(addNewTaskList(flag));
         onClose();
     };
 

@@ -38,9 +38,11 @@
 
 .item {
     position: relative;
-    margin-bottom: 6px;
+    margin-bottom: 12px;
+    color: rgb(53, 53, 53);
 
-    &:hover .card {
+    &:hover .card,
+    &.dragging .card {
         background-color: #ebecf0;
     }
 
