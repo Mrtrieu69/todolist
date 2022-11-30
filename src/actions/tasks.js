@@ -25,3 +25,10 @@ export const deleteTask = (payload) => {
         payload,
     };
 };
+
+export const editTask = (payload) => {
+    return {
+        type: "EDIT_TASK",
+        payload,
+    };
+};

@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames/bind";
 import { AiOutlinePlus } from "react-icons/ai";
@@ -11,6 +11,7 @@ import styles from "./TaskList.module.scss";
 import TaskItem from "./TaskItem";
 import { addNewTask } from "../../../../actions/tasks";
 import { randomId } from "../../../../utils";
+import { useOutsideClick } from "../../../../hooks";
 
 const cx = classNames.bind(styles);
 
@@ -28,58 +29,22 @@ const TaskList = ({ status, label, taskList, idList }) => {
         }, 0);
         setShowAddTask(true);
     };
+    const handleAddTask = () => {
+        if (value.trim().length === 0) return;
 
-    useEffect(() => {
-        const handleAddTask = () => {
-            if (value.trim().length === 0) return;
-
-            const task = {
-                task: value,
-                id: randomId(),
-            };
-            dispatch(addNewTask({ idList, task, flag }));
+        const task = {
+            task: value,
+            id: randomId(),
         };
+        dispatch(addNewTask({ idList, task, flag }));
+    };
 
-        const removeClickListener = () => {
-            window.removeEventListener("click", outsideClickListener);
-        };
-
-        const outsideClickListener = (e) => {
-            if (!e.target.closest(`.${cx("item")}`)) {
-                if (value.trim() !== 0) {
-                    handleAddTask();
-                }
-                setValue("");
-                setShowAddTask(false);
-                removeClickListener();
-            }
-        };
-
-        const handleKeydown = (e) => {
-            if (e.code !== "Escape" && e.code !== "Enter") return;
-
-            setValue("");
-            removeClickListener();
-            setShowAddTask(false);
-            if (e.code === "Enter") {
-                handleAddTask();
-            }
-        };
-
-        if (showAddTask) {
-            setTimeout(() => {
-                window.addEventListener("click", outsideClickListener);
-                window.addEventListener("keydown", handleKeydown);
-            }, 0);
-        }
-
-        return () => {
-            if (showAddTask) {
-                window.removeEventListener("click", outsideClickListener);
-                window.removeEventListener("keydown", handleKeydown);
-            }
-        };
-    }, [showAddTask, value, flag, idList]);
+    const ref = useOutsideClick(
+        handleAddTask,
+        showAddTask,
+        setShowAddTask,
+        setValue
+    );
 
     return (
         <div className={cx("wrapper")}>
@@ -115,6 +80,7 @@ const TaskList = ({ status, label, taskList, idList }) => {
                                         />
                                     ))}
                                     <div
+                                        ref={ref}
                                         className={cx("item", "adding", {
                                             hide: !showAddTask,
                                         })}

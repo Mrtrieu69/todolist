@@ -76,7 +76,6 @@ const tasksReducer = (
         }
         case "ADD_NEW_TASK": {
             const { flag, idList, task } = action.payload;
-
             const newList = state[flag][idList].list;
             newList.push(task);
 
@@ -124,6 +123,26 @@ const tasksReducer = (
             const newList = state[flag][idList].list.filter(
                 (item) => item.id !== id
             );
+
+            return {
+                ...state,
+                [flag]: {
+                    ...state[flag],
+                    [idList]: {
+                        ...state[flag][idList],
+                        list: newList,
+                    },
+                },
+            };
+        }
+
+        case "EDIT_TASK": {
+            const { flag, idList, index, value } = action.payload;
+            const newList = [...state[flag][idList].list];
+            const item = state[flag][idList].list[index];
+            const newItem = { ...item, task: value };
+
+            newList.splice(index, 1, newItem);
 
             return {
                 ...state,

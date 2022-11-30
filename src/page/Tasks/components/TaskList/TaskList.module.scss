@@ -76,6 +76,10 @@
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
+
+    & .order {
+        margin-right: 4px;
+    }
 }
 
 .controls {
