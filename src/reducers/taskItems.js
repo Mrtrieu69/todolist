@@ -1,35 +1,11 @@
-import { randomId } from "../utils";
-
-const initialState = {
-    22635345: {
-        comments: [
-            { id: randomId(), content: "The first comment..", replies: [] },
-        ],
-        subTaskItems: [
-            { id: randomId(), subTask: "First sub Task", status: true },
-            { id: randomId(), subTask: "Second sub Task", status: false },
-        ],
-    },
-    8678565412: {
-        comments: [],
-        subTaskItems: [],
-    },
-    784628365: {
-        comments: [],
-        subTaskItems: [],
-    },
-    65978373: {
-        comments: [],
-        subTaskItems: [],
-    },
-};
+import { TASK_ITEMS_DEFAULT } from "../data";
 
 const taskItemsFromLocalStorage = JSON.parse(
     localStorage.getItem("task_items")
 );
 
 const taskItemsReducer = (
-    state = taskItemsFromLocalStorage || initialState,
+    state = taskItemsFromLocalStorage || TASK_ITEMS_DEFAULT,
     action
 ) => {
     switch (action.type) {
@@ -44,6 +20,7 @@ const taskItemsReducer = (
             localStorage.setItem("task_items", JSON.stringify(newState));
             return newState;
         }
+
         case "DELETE_TASK_ITEM": {
             const newState = JSON.parse(JSON.stringify(state));
             delete newState[action.payload];
@@ -51,6 +28,76 @@ const taskItemsReducer = (
             localStorage.setItem("task_items", JSON.stringify(newState));
             return newState;
         }
+
+        case "UPDATE_SUB_TASK_ITEM": {
+            const { idTaskItem, index, value, status } = action.payload;
+
+            const taskItem = state[idTaskItem];
+            const newSubTaskItems = taskItem.subTaskItems;
+
+            newSubTaskItems[index].subTask = value;
+            newSubTaskItems[index].status = status;
+
+            return {
+                ...state,
+                [idTaskItem]: {
+                    ...state[idTaskItem],
+                    subTaskItems: newSubTaskItems,
+                },
+            };
+        }
+
+        case "UPDATE_STATUS_SUB_TASK_ITEM": {
+            console.log(action.payload);
+            const { idTaskItem, index, status } = action.payload;
+
+            const taskItem = state[idTaskItem];
+            const newSubTaskItems = taskItem.subTaskItems;
+
+            newSubTaskItems[index].status = status;
+
+            return {
+                ...state,
+                [idTaskItem]: {
+                    ...state[idTaskItem],
+                    subTaskItems: newSubTaskItems,
+                },
+            };
+        }
+
+        case "DELETE_SUB_TASK_ITEM": {
+            const { idTaskItem, index } = action.payload;
+
+            const taskItem = state[idTaskItem];
+            const newSubTaskItems = taskItem.subTaskItems;
+            newSubTaskItems.splice(index, 1);
+            console.log(newSubTaskItems);
+
+            return {
+                ...state,
+                [idTaskItem]: {
+                    ...state[idTaskItem],
+                    subTaskItems: newSubTaskItems,
+                },
+            };
+        }
+
+        case "ADD_SUB_TASK_ITEM": {
+            const { idTaskItem, value, status, id } = action.payload;
+
+            const taskItem = state[idTaskItem];
+            const newSubTaskItems = taskItem.subTaskItems;
+            newSubTaskItems.push({ subTask: value, status, id });
+
+            return {
+                ...state,
+                [idTaskItem]: {
+                    ...state[idTaskItem],
+                    subTaskItems: newSubTaskItems,
+                },
+            };
+        }
+
         default:
             return state;
     }

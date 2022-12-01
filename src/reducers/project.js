@@ -1,24 +1,9 @@
-import { randomId, getFlag } from "../utils";
-
-const id = randomId();
-const flag = getFlag("Housework");
-
-const initialState = {
-    list: [
-        {
-            id,
-            path: `/tasks/${flag}`,
-            flag,
-            title: "Housework",
-            desc: "Housework by Mom",
-        },
-    ],
-};
+import { PROJECTS_DEFAULT } from "../data";
 
 const projectsFromLocalStorage = JSON.parse(localStorage.getItem("projects"));
 
 const projectReducer = (
-    state = projectsFromLocalStorage || initialState,
+    state = projectsFromLocalStorage || PROJECTS_DEFAULT,
     action
 ) => {
     switch (action.type) {

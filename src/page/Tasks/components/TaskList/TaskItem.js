@@ -18,7 +18,7 @@ import { BiEditAlt } from "react-icons/bi";
 
 const cx = classNames.bind(styles);
 
-const TaskItem = ({ task, index, id, idList }) => {
+const TaskItem = ({ task, index, id, idList, status, label }) => {
     const [showEdit, setShowEdit] = useState(false);
     const [value, setValue] = useState(task);
     const [showDetail, setShowDetail] = useState(false);
@@ -26,8 +26,17 @@ const TaskItem = ({ task, index, id, idList }) => {
     const dispatch = useDispatch();
     const inputRef = useRef();
 
+    const handleDeleteTask = () => {
+        dispatch(deleteTask({ id, flag, idList }));
+        dispatch(deleteTaskItem(id));
+    };
+
     const handleEdit = () => {
-        dispatch(editTask({ index, flag, idList, value }));
+        if (value.trim().length === 0) {
+            handleDeleteTask();
+        } else {
+            dispatch(editTask({ index, flag, idList, value }));
+        }
     };
 
     const ref = useOutsideClick(
@@ -37,11 +46,6 @@ const TaskItem = ({ task, index, id, idList }) => {
         setValue,
         value
     );
-
-    const handleDeleteTask = () => {
-        dispatch(deleteTask({ id, flag, idList }));
-        dispatch(deleteTaskItem(id));
-    };
 
     const handleShowEdit = () => {
         setShowEdit(true);
@@ -122,8 +126,11 @@ const TaskItem = ({ task, index, id, idList }) => {
                         </div>
                         {showDetail && (
                             <ModalDetail
+                                status={status}
                                 onClose={handleCloseShowDetail}
                                 id={id}
+                                label={label}
+                                task={task}
                             />
                         )}
                     </div>
@@ -138,6 +145,8 @@ TaskItem.propTypes = {
     id: PropTypes.string,
     index: PropTypes.number,
     idList: PropTypes.string,
+    status: PropTypes.string,
+    label: PropTypes.string,
 };
 
 export default TaskItem;

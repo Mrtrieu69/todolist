@@ -1,6 +1,6 @@
 import classNames from "classnames/bind";
 import PropTypes from "prop-types";
-import { useEffect } from "react";
+// import { useEffect } from "react";
 import { createPortal } from "react-dom";
 
 import styles from "./Modal.module.scss";
@@ -17,17 +17,17 @@ if (!modalRoot) {
 }
 
 const Modal = ({ onClose, children }) => {
-    useEffect(() => {
-        const handleKeydown = (e) => {
-            if (e.code === "Escape") {
-                onClose();
-            }
-        };
+    // useEffect(() => {
+    //     const handleKeydown = (e) => {
+    //         if (e.code === "Escape") {
+    //             onClose();
+    //         }
+    //     };
 
-        document.addEventListener("keydown", handleKeydown);
+    //     document.addEventListener("keydown", handleKeydown);
 
-        return () => document.removeEventListener("keydown", handleKeydown);
-    });
+    //     return () => document.removeEventListener("keydown", handleKeydown);
+    // });
 
     return createPortal(
         <div className={cx("wrapper")}>

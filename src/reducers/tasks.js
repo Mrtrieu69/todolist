@@ -1,35 +1,10 @@
 import { randomId } from "../utils";
-
-const initialState = {
-    housework: {
-        queue: {
-            id: "12345",
-            status: "queue",
-            label: "Queue",
-            list: [
-                { id: "22635345", task: "Cook rice" },
-                { id: "8678565412", task: "Wash dishes" },
-            ],
-        },
-        development: {
-            id: "11123",
-            status: "development",
-            label: "Development",
-            list: [{ id: "784628365", task: "Sweep the house" }],
-        },
-        done: {
-            id: "12344",
-            status: "done",
-            label: "Done 🙌",
-            list: [{ id: "65978373", task: "Clean the house" }],
-        },
-    },
-};
+import { TASKS_DEFAULT } from "../data";
 
 const tasksFromLocalStorage = JSON.parse(localStorage.getItem("tasks"));
 
 const tasksReducer = (
-    state = tasksFromLocalStorage || initialState,
+    state = tasksFromLocalStorage || TASKS_DEFAULT,
     action
 ) => {
     switch (action.type) {

@@ -79,9 +79,11 @@ const TaskList = ({ status, label, taskList, idList }) => {
                                 >
                                     {taskList.map((item, id) => (
                                         <TaskItem
+                                            status={status}
                                             idList={idList}
                                             key={id}
                                             index={id}
+                                            label={label}
                                             {...item}
                                         />
                                     ))}

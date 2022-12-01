@@ -11,7 +11,7 @@ const Comment = () => {
             <div className={cx("user-info")}>
                 <img className={cx("image")} src={userImage} alt="Me" />
                 <p className={cx("name")}>
-                    Trieu Tam{" "}
+                    Trieu Tam
                     <span className={cx("comment-time")}>Just now</span>
                 </p>
             </div>

@@ -1,27 +1,42 @@
 import classNames from "classnames/bind";
 import PropTypes from "prop-types";
-import { useState } from "react";
-import {
-    BsCaretUpSquare,
-    BsCalendarDate,
-    BsFillArrowUpCircleFill,
-    BsPlus,
-} from "react-icons/bs";
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 
 import styles from "./ModalDetail.module.scss";
 import { Modal } from "../../../../components";
 import userImage from "../../../../assets/img/me.jpg";
 import Comment from "./Comment";
-import SubTask from "./SubTask";
+
+// icons
+import {
+    BsCaretUpSquare,
+    BsCalendarDate,
+    BsFillArrowUpCircleFill,
+} from "react-icons/bs";
+import SubTasks from "./SubTasks";
 
 const cx = classNames.bind(styles);
 
-const ModalDetail = ({ onClose, id: idTaskItem }) => {
+const ModalDetail = ({
+    onClose,
+    id: idTaskItem,
+    status: statusTaskItem,
+    label,
+    task,
+}) => {
     const [value, setValue] = useState("");
+    const taskItems = useSelector((state) => state.taskItems);
+    const taskItem = taskItems[idTaskItem];
+
+    useEffect(() => {
+        localStorage.setItem("task_items", JSON.stringify(taskItems));
+    }, [taskItems]);
+
     return (
         <Modal onClose={onClose}>
             <div className={cx("content")}>
-                <h2 className={cx("title")}>Coke rice</h2>
+                <h2 className={cx("title")}>{task}</h2>
                 <div className={cx("details")}>
                     <div className={cx("detail")}>
                         <div className={cx("item")}>
@@ -42,14 +57,20 @@ const ModalDetail = ({ onClose, id: idTaskItem }) => {
                             Status
                         </div>
                         <div className={cx("item")}>
-                            <span className={cx("status", "done")}>
-                                Done 🙌
+                            <span
+                                className={cx("status", {
+                                    [statusTaskItem]: statusTaskItem,
+                                })}
+                            >
+                                {label}
                             </span>
                         </div>
                     </div>
                 </div>
                 <div className={cx("comments")}>
-                    <Comment />
+                    {taskItem.comments.map((comment) => (
+                        <Comment key={comment.id} {...comment} />
+                    ))}
                     <div className={cx("add-comment")}>
                         <img className={cx("image")} src={userImage} alt="Me" />
                         <input
@@ -68,15 +89,7 @@ const ModalDetail = ({ onClose, id: idTaskItem }) => {
                         </span>
                     </div>
                 </div>
-                <div className={cx("subtasks")}>
-                    <SubTask />
-                    <div className={cx("add-subtask")}>
-                        <span className={cx("icon")}>
-                            <BsPlus />
-                        </span>
-                        Add a subtask
-                    </div>
-                </div>
+                <SubTasks idTaskItem={idTaskItem} taskItem={taskItem} />
             </div>
         </Modal>
     );
@@ -85,6 +98,9 @@ const ModalDetail = ({ onClose, id: idTaskItem }) => {
 ModalDetail.propTypes = {
     onClose: PropTypes.func.isRequired,
     id: PropTypes.string.isRequired,
+    status: PropTypes.string.isRequired,
+    label: PropTypes.string.isRequired,
+    task: PropTypes.string.isRequired,
 };
 
 export default ModalDetail;
