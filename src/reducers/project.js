@@ -8,6 +8,7 @@ const initialState = {
         {
             id,
             path: `/tasks/${flag}`,
+            flag,
             title: "Housework",
             desc: "Housework by Mom",
         },

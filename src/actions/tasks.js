@@ -19,6 +19,13 @@ export const addNewTaskList = (payload) => {
     };
 };
 
+export const deleteTaskList = (payload) => {
+    return {
+        type: "DELETE_TASK_LIST",
+        payload,
+    };
+};
+
 export const deleteTask = (payload) => {
     return {
         type: "DELETE_TASK",

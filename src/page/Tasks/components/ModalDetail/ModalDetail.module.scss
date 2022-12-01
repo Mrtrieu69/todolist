@@ -1,0 +1,237 @@
+.content {
+    width: calc(100% - 24px);
+    padding: 24px 48px;
+    background-color: #fff;
+    border-radius: 4px;
+    color: rgba(55, 53, 47, 0.65);
+    font-size: 1.4rem;
+    animation: fade-down 0.3s ease;
+
+    @media (min-width: 740px) and (max-width: 1023px) {
+        width: 60%;
+    }
+
+    @media (min-width: 1024px) {
+        width: 40%;
+    }
+}
+
+.title {
+    font-size: 3.2rem;
+    margin-bottom: 24px;
+    color: #37352f;
+}
+
+.details {
+    padding: 8px 0;
+}
+
+.detail {
+    margin-bottom: 8px;
+    display: flex;
+}
+
+.item {
+    width: 50%;
+    height: 26px;
+    display: flex;
+    align-items: center;
+}
+
+.icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 8px;
+    font-size: 1.8rem;
+}
+
+.text {
+    color: #37352f;
+}
+
+.status {
+    padding: 0 4px 2px;
+    border-radius: 4px;
+
+    &.queue {
+        color: rgb(93, 23, 21);
+        background-color: rgb(255, 226, 221);
+    }
+
+    &.development {
+        color: rgb(64, 44, 27);
+        background: rgb(253, 236, 200);
+    }
+
+    &.done {
+        color: rgb(28, 56, 41);
+        background: rgb(219, 237, 219);
+    }
+}
+
+.comments {
+    padding: 12px;
+    border-bottom: 1px solid rgb(210, 210, 210);
+    border-top: 1px solid rgb(210, 210, 210);
+}
+
+.comment {
+    padding: 4px 0;
+}
+
+.user-info {
+    display: flex;
+}
+
+.name {
+    font-weight: 600;
+    color: #37352f;
+}
+
+.comment-time {
+    font-size: 1.2rem;
+    color: rgba(55, 53, 47, 0.65);
+}
+
+.user-comment {
+    margin-top: 4px;
+    margin-left: 28px;
+    color: #37352f;
+}
+
+.add-comment {
+    padding: 4px 0;
+    display: flex;
+    align-items: center;
+}
+
+.image {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 8px;
+}
+
+.input {
+    flex: 1;
+
+    &:focus + .submit {
+        display: flex;
+    }
+}
+
+.submit {
+    display: none;
+    font-size: 2rem;
+    cursor: pointer;
+    color: #2383e2;
+    transition: color 0.3s ease;
+
+    &.disable {
+        color: rgba(55, 53, 47, 0.65);
+        cursor: auto;
+        pointer-events: none;
+    }
+}
+
+.subtasks {
+    padding: 12px 0;
+}
+
+.add-subtask {
+    cursor: pointer;
+    display: inline-flex;
+    border-radius: 4px;
+    padding: 8px 8px 8px 4px;
+    margin-top: 6px;
+
+    &:hover {
+        background-color: rgba(55 53 47 / 0.08);
+    }
+}
+
+.subtask {
+    position: relative;
+    padding: 4px 0;
+    display: flex;
+    cursor: pointer;
+
+    &:hover .delete-subtask {
+        display: flex;
+    }
+}
+
+.label {
+    position: relative;
+    margin-left: 40px;
+    cursor: pointer;
+
+    &::before {
+        content: "";
+        display: block;
+        width: 16px;
+        height: 16px;
+        border: 1px solid black;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        left: -26px;
+        border-radius: 4px;
+    }
+}
+
+.text-subtask {
+    flex: 1;
+}
+
+.checkbox {
+    display: none;
+
+    &:checked + .label::before {
+        border-color: #0b76ef;
+        background-color: #0b76ef;
+        background-image: url("/assets/img/checkk.svg");
+        background-position: center;
+        background-size: 80%;
+        background-repeat: no-repeat;
+    }
+
+    &:checked ~ .text-subtask {
+        text-decoration: line-through;
+    }
+}
+
+.delete-subtask {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 20px;
+    height: 20px;
+    border-radius: 4px;
+    box-shadow: rgb(15 15 15 / 10%) 0px 0px 0px 1px,
+        rgb(15 15 15 / 10%) 0px 2px 4px;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+        background-color: var(--bg-hover);
+    }
+}
+
+// animations
+@keyframes fade-down {
+    0% {
+        opacity: 0;
+        transform: translateY(-50%);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

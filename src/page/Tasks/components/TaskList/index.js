@@ -1,8 +1,6 @@
 import { useRef, useState } from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames/bind";
-import { AiOutlinePlus } from "react-icons/ai";
-import { ImFileEmpty } from "react-icons/im";
 import { Droppable } from "react-beautiful-dnd";
 import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
@@ -10,8 +8,13 @@ import { useParams } from "react-router-dom";
 import styles from "./TaskList.module.scss";
 import TaskItem from "./TaskItem";
 import { addNewTask } from "../../../../actions/tasks";
+import { addNewTaskItem } from "../../../../actions/taskItems";
 import { randomId } from "../../../../utils";
 import { useOutsideClick } from "../../../../hooks";
+
+// icons
+import { AiOutlinePlus } from "react-icons/ai";
+import { ImFileEmpty } from "react-icons/im";
 
 const cx = classNames.bind(styles);
 
@@ -32,11 +35,14 @@ const TaskList = ({ status, label, taskList, idList }) => {
     const handleAddTask = () => {
         if (value.trim().length === 0) return;
 
+        const id = randomId();
+
         const task = {
             task: value,
-            id: randomId(),
+            id,
         };
         dispatch(addNewTask({ idList, task, flag }));
+        dispatch(addNewTaskItem(id));
     };
 
     const ref = useOutsideClick(
@@ -68,7 +74,7 @@ const TaskList = ({ status, label, taskList, idList }) => {
                                         borderTopColor: snapshot.isDraggingOver
                                             ? "#2383e2"
                                             : "transparent",
-                                        minHeight: 400,
+                                        minHeight: 370,
                                     }}
                                 >
                                     {taskList.map((item, id) => (

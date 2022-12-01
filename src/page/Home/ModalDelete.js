@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux";
 import styles from "./Home.module.scss";
 import { Modal } from "../../components";
 import { deleteProject } from "../../actions/project";
+import { deleteTaskList } from "../../actions/tasks";
 
 const cx = classNames.bind(styles);
 
@@ -13,6 +14,7 @@ const ModalDelete = ({ onClose, project }) => {
 
     const handleDeleteProject = () => {
         dispatch(deleteProject(project.id));
+        dispatch(deleteTaskList(project.flag));
         onClose();
     };
 

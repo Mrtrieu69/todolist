@@ -28,6 +28,7 @@ const ModalForm = ({ onClose }) => {
                 title,
                 desc,
                 path: `/tasks/${flag}`,
+                flag,
             })
         );
         dispatch(addNewTaskList(flag));

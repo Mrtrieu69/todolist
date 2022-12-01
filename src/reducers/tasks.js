@@ -136,6 +136,15 @@ const tasksReducer = (
             };
         }
 
+        case "DELETE_TASK_LIST": {
+            const newState = JSON.parse(JSON.stringify(state));
+            delete newState[action.payload];
+
+            localStorage.setItem("tasks", JSON.stringify(newState));
+
+            return newState;
+        }
+
         case "EDIT_TASK": {
             const { flag, idList, index, value } = action.payload;
             const newList = [...state[flag][idList].list];

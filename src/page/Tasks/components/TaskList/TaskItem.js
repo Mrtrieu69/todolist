@@ -1,21 +1,27 @@
 import { useRef, useState } from "react";
 import classNames from "classnames/bind";
 import PropTypes from "prop-types";
-import { ImFileEmpty } from "react-icons/im";
-import { AiOutlineEdit, AiOutlineDelete } from "react-icons/ai";
 import { Draggable } from "react-beautiful-dnd";
 import { useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
 import styles from "./TaskList.module.scss";
 import { deleteTask, editTask } from "../../../../actions/tasks";
+import { deleteTaskItem } from "../../../../actions/taskItems";
 import { useOutsideClick } from "../../../../hooks";
+import ModalDetail from "../ModalDetail";
+
+// icons
+import { ImFileEmpty } from "react-icons/im";
+import { BsTrash } from "react-icons/bs";
+import { BiEditAlt } from "react-icons/bi";
 
 const cx = classNames.bind(styles);
 
 const TaskItem = ({ task, index, id, idList }) => {
     const [showEdit, setShowEdit] = useState(false);
     const [value, setValue] = useState(task);
+    const [showDetail, setShowDetail] = useState(false);
     const { flag } = useParams();
     const dispatch = useDispatch();
     const inputRef = useRef();
@@ -34,6 +40,7 @@ const TaskItem = ({ task, index, id, idList }) => {
 
     const handleDeleteTask = () => {
         dispatch(deleteTask({ id, flag, idList }));
+        dispatch(deleteTaskItem(id));
     };
 
     const handleShowEdit = () => {
@@ -41,6 +48,10 @@ const TaskItem = ({ task, index, id, idList }) => {
         setTimeout(() => {
             inputRef.current.focus();
         }, 0);
+    };
+
+    const handleCloseShowDetail = () => {
+        setShowDetail(false);
     };
 
     return (
@@ -81,7 +92,10 @@ const TaskItem = ({ task, index, id, idList }) => {
                                         />
                                     </>
                                 ) : (
-                                    <p className={cx("task")}>
+                                    <p
+                                        onClick={() => setShowDetail(true)}
+                                        className={cx("task")}
+                                    >
                                         <span className={cx("order")}>
                                             {index + 1}.
                                         </span>
@@ -95,17 +109,23 @@ const TaskItem = ({ task, index, id, idList }) => {
                                         onClick={handleShowEdit}
                                         className={cx("icon")}
                                     >
-                                        <AiOutlineEdit />
+                                        <BiEditAlt />
                                     </span>
                                     <span
                                         onClick={handleDeleteTask}
                                         className={cx("icon")}
                                     >
-                                        <AiOutlineDelete />
+                                        <BsTrash />
                                     </span>
                                 </div>
                             )}
                         </div>
+                        {showDetail && (
+                            <ModalDetail
+                                onClose={handleCloseShowDetail}
+                                id={id}
+                            />
+                        )}
                     </div>
                 );
             }}
