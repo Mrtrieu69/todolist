@@ -5,6 +5,9 @@ import { createPortal } from "react-dom";
 
 import styles from "./Modal.module.scss";
 
+// icons
+import { GrFormClose } from "react-icons/gr";
+
 const cx = classNames.bind(styles);
 
 let modalRoot = document.querySelector("#modal-root");
@@ -38,7 +41,12 @@ const Modal = ({ onClose, children, disableEsc = false }) => {
     return createPortal(
         <div className={cx("wrapper")}>
             <div onClick={onClose} className={cx("layout")}></div>
-            <div className={cx("content")}>{children}</div>
+            <div className={cx("content")}>
+                <span onClick={onClose} className={cx("close")}>
+                    <GrFormClose />
+                </span>
+                {children}
+            </div>
         </div>,
         modalRoot
     );

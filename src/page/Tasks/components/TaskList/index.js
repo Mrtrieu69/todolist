@@ -58,7 +58,9 @@ const TaskList = ({ status, label, taskList, idList, valueSearch }) => {
                     <span>
                         {
                             taskList.filter((item) =>
-                                item.task.toLowerCase().includes(valueSearch)
+                                item.task
+                                    .toLowerCase()
+                                    .includes(valueSearch.toLowerCase())
                             ).length
                         }
                     </span>
@@ -81,7 +83,9 @@ const TaskList = ({ status, label, taskList, idList, valueSearch }) => {
                                 >
                                     {taskList
                                         .filter((item) =>
-                                            item.task.toLowerCase().includes(valueSearch)
+                                            item.task
+                                                .toLowerCase()
+                                                .includes(valueSearch.toLowerCase())
                                         )
                                         .map((item, id) => (
                                             <TaskItem

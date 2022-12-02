@@ -23,6 +23,7 @@
 }
 
 .content {
+    position: relative;
     -webkit-animation: fade-down 0.3s ease;
     animation: fade-down 0.3s ease;
     width: calc(100% - 24px);
@@ -36,6 +37,28 @@
     }
 }
 
+.close {
+    position: absolute;
+    right: 12px;
+    top: 12px;
+    display: -webkit-inline-box;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    font-size: 3rem;
+    cursor: pointer;
+
+    @media (min-width: 740px) {
+        display: none;
+    }
+}
+
+// animations
 @-webkit-keyframes fade {
     0% {
         opacity: 0;
