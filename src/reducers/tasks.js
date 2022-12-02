@@ -1,23 +1,31 @@
-import { randomId } from "../utils";
+import { getRandomId, getCurrentTime } from "../utils";
 import { TASKS_DEFAULT } from "../data";
 
 const tasksFromLocalStorage = JSON.parse(localStorage.getItem("tasks"));
 
-const tasksReducer = (
-    state = tasksFromLocalStorage || TASKS_DEFAULT,
-    action
-) => {
+const tasksReducer = (state = tasksFromLocalStorage || TASKS_DEFAULT, action) => {
     switch (action.type) {
         case "CHANGE_ITEM_IN_MULTI_LIST": {
-            const { flag, taskList, source, destination } = action.payload;
+            const { flag, taskList, source, destination, draggableId } = action.payload;
 
             if (source.droppableId !== destination.droppableId) {
                 const sourceColumn = taskList[source.droppableId];
                 const destColumn = taskList[destination.droppableId];
                 const sourceList = sourceColumn.list;
                 const destList = destColumn.list;
-                const [removed] = sourceList.splice(source.index, 1);
+                const sourceIndex = sourceList.findIndex(
+                    (item) => item.id === draggableId
+                );
+                const [removed] = sourceList.splice(sourceIndex, 1);
+
+                if (destination.droppableId === "done") {
+                    removed["endDate"] = getCurrentTime();
+                } else {
+                    removed["endDate"] = null;
+                }
+
                 destList.splice(destination.index, 0, removed);
+
                 return {
                     ...state,
                     [flag]: {
@@ -51,6 +59,11 @@ const tasksReducer = (
         }
         case "ADD_NEW_TASK": {
             const { flag, idList, task } = action.payload;
+            if (idList === "done") {
+                task["endDate"] = getCurrentTime();
+            } else {
+                task["endDate"] = null;
+            }
             const newList = state[flag][idList].list;
             newList.push(task);
 
@@ -71,19 +84,19 @@ const tasksReducer = (
             const newState = JSON.parse(JSON.stringify(state));
             newState[flag] = {
                 queue: {
-                    id: randomId(),
+                    id: getRandomId(),
                     status: "queue",
                     label: "Queue",
                     list: [],
                 },
                 development: {
-                    id: randomId(),
+                    id: getRandomId(),
                     status: "development",
                     label: "Development",
                     list: [],
                 },
                 done: {
-                    id: randomId(),
+                    id: getRandomId(),
                     status: "done",
                     label: "Done 🙌",
                     list: [],
@@ -95,9 +108,7 @@ const tasksReducer = (
 
         case "DELETE_TASK": {
             const { flag, idList, id } = action.payload;
-            const newList = state[flag][idList].list.filter(
-                (item) => item.id !== id
-            );
+            const newList = state[flag][idList].list.filter((item) => item.id !== id);
 
             return {
                 ...state,

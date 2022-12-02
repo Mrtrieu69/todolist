@@ -9,7 +9,7 @@ import styles from "./TaskList.module.scss";
 import TaskItem from "./TaskItem";
 import { addNewTask } from "../../../../actions/tasks";
 import { addNewTaskItem } from "../../../../actions/taskItems";
-import { randomId, getCurrentTime } from "../../../../utils";
+import { getRandomId, getCurrentTime } from "../../../../utils";
 import { useOutsideClick } from "../../../../hooks";
 
 // icons
@@ -18,7 +18,7 @@ import { ImFileEmpty } from "react-icons/im";
 
 const cx = classNames.bind(styles);
 
-const TaskList = ({ status, label, taskList, idList }) => {
+const TaskList = ({ status, label, taskList, idList, valueSearch }) => {
     const [showAddTask, setShowAddTask] = useState(false);
     const [value, setValue] = useState("");
     const dispatch = useDispatch();
@@ -35,7 +35,7 @@ const TaskList = ({ status, label, taskList, idList }) => {
     const handleAddTask = () => {
         if (value.trim().length === 0) return;
 
-        const id = randomId();
+        const id = getRandomId();
         const createDate = getCurrentTime();
 
         const task = {
@@ -48,21 +48,20 @@ const TaskList = ({ status, label, taskList, idList }) => {
         dispatch(addNewTaskItem(id));
     };
 
-    const ref = useOutsideClick(
-        handleAddTask,
-        showAddTask,
-        setShowAddTask,
-        setValue
-    );
+    const ref = useOutsideClick(handleAddTask, showAddTask, setShowAddTask, setValue);
 
     return (
         <div className={cx("wrapper")}>
             <div className={cx("content")}>
                 <div className={cx("header")}>
-                    <span className={cx("label", { [status]: status })}>
-                        {label}
+                    <span className={cx("label", { [status]: status })}>{label}</span>
+                    <span>
+                        {
+                            taskList.filter((item) =>
+                                item.task.toLowerCase().includes(valueSearch)
+                            ).length
+                        }
                     </span>
-                    <span>{taskList.length}</span>
                 </div>
                 <div className={cx("body")}>
                     <Droppable droppableId={idList} key={idList}>
@@ -80,16 +79,20 @@ const TaskList = ({ status, label, taskList, idList }) => {
                                         minHeight: 370,
                                     }}
                                 >
-                                    {taskList.map((item, id) => (
-                                        <TaskItem
-                                            status={status}
-                                            idList={idList}
-                                            key={id}
-                                            index={id}
-                                            label={label}
-                                            {...item}
-                                        />
-                                    ))}
+                                    {taskList
+                                        .filter((item) =>
+                                            item.task.toLowerCase().includes(valueSearch)
+                                        )
+                                        .map((item, id) => (
+                                            <TaskItem
+                                                status={status}
+                                                idList={idList}
+                                                key={id}
+                                                index={id}
+                                                label={label}
+                                                {...item}
+                                            />
+                                        ))}
                                     <div
                                         ref={ref}
                                         className={cx("item", "adding", {
@@ -100,15 +103,13 @@ const TaskList = ({ status, label, taskList, idList }) => {
                                             <span className={cx("add-icon")}>
                                                 <ImFileEmpty />
                                             </span>
-                                            <input
+                                            <textarea
                                                 ref={inputRef}
                                                 placeholder="Type a name..."
                                                 className={cx("input")}
                                                 type="text"
                                                 value={value}
-                                                onChange={(e) =>
-                                                    setValue(e.target.value)
-                                                }
+                                                onChange={(e) => setValue(e.target.value)}
                                             />
                                         </div>
                                     </div>
@@ -137,6 +138,7 @@ TaskList.propTypes = {
     label: PropTypes.string,
     taskList: PropTypes.array,
     idList: PropTypes.string,
+    valueSearch: PropTypes.string,
 };
 
 export default TaskList;

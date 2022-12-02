@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import classNames from "classnames/bind";
 import { Link } from "react-router-dom";
 import { DragDropContext } from "react-beautiful-dnd";
@@ -13,13 +13,14 @@ import { changeItemInMultiList } from "../../actions/tasks";
 
 // icons
 import { FcHome } from "react-icons/fc";
-import { BsCheckLg } from "react-icons/bs";
+import { BsCheckLg, BsSearch } from "react-icons/bs";
+import { TiDelete } from "react-icons/ti";
 
 const cx = classNames.bind(styles);
 
 const onDragEnd = (result, taskList, flag, dispatch) => {
     if (!result.destination) return;
-    const { source, destination } = result;
+    const { source, destination, draggableId } = result;
 
     dispatch(
         changeItemInMultiList({
@@ -27,18 +28,37 @@ const onDragEnd = (result, taskList, flag, dispatch) => {
             taskList,
             source,
             destination,
+            draggableId,
         })
     );
 };
 
 const Tasks = () => {
+    const [value, setValue] = useState("");
+    const [showSearch, setShowSearch] = useState("");
+
     const { flag } = useParams();
     const tasks = useSelector((state) => state.tasks);
     const projects = useSelector((state) => state.projects);
     const taskList = tasks[flag];
     const dispatch = useDispatch();
+    const inputRef = useRef();
 
     const currentProject = projects.list.find((project) => project.flag === flag);
+
+    const handleToggleShowSearch = () => {
+        setShowSearch(!showSearch);
+        setValue("");
+
+        if (!showSearch) {
+            inputRef.current.focus();
+        }
+    };
+
+    const handleHideSearch = () => {
+        setShowSearch(false);
+        setValue("");
+    };
 
     useEffect(() => {
         localStorage.setItem("tasks", JSON.stringify(tasks));
@@ -80,6 +100,30 @@ const Tasks = () => {
                         Click <span className={cx("separate")}>+ New</span> to create a
                         new task directly on this board.
                     </p>
+                    <div className={cx("search")}>
+                        <span
+                            onClick={handleToggleShowSearch}
+                            className={cx("icon-search")}
+                        >
+                            <BsSearch />
+                        </span>
+                        <div className={cx("search-control", { show: showSearch })}>
+                            <input
+                                ref={inputRef}
+                                type="text"
+                                value={value}
+                                onChange={(e) => setValue(e.target.value)}
+                                placeholder="Type to search..."
+                                className={cx("search-input")}
+                            />
+                            <span
+                                onClick={handleHideSearch}
+                                className={cx("icon-delete")}
+                            >
+                                <TiDelete />
+                            </span>
+                        </div>
+                    </div>
                     <div className={cx("container")}>
                         <DragDropContext
                             onDragEnd={(result) =>
@@ -88,6 +132,7 @@ const Tasks = () => {
                         >
                             {Object.entries(taskList).map(([id, list]) => (
                                 <TaskList
+                                    valueSearch={value}
                                     key={id}
                                     idList={id}
                                     status={list.status}

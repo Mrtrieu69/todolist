@@ -1,6 +1,6 @@
 import moment from "moment";
 
-export const randomId = () => {
+export const getRandomId = () => {
     return Math.floor(Math.random() * 10e10).toString(16);
 };
 
@@ -21,4 +21,16 @@ export const getCurrentTimeToSecond = () => {
 
 export const getTimeFromNow = (date) => {
     return moment(date).fromNow();
+};
+
+export const getTimeToX = (createDate, endDate) => {
+    const start = moment(createDate);
+    let end;
+    if (endDate) {
+        end = moment(endDate);
+    } else {
+        end = moment(getCurrentTime());
+    }
+
+    return end.to(start, true);
 };

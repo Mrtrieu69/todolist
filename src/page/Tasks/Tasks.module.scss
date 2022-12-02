@@ -7,16 +7,28 @@
 
 .header {
     color: #000;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
     justify-content: space-between;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
     height: 50px;
 }
 
 .link {
     color: #000;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
+    -webkit-transition: color 0.3s ease;
+    -o-transition: color 0.3s ease;
     transition: color 0.3s ease;
 
     &:hover {
@@ -25,19 +37,31 @@
 }
 
 .icon {
-    display: flex;
+    display: -webkit-inline-box;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
     justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
     margin-right: 4px;
 
     &.check {
+        display: -webkit-inline-box;
+        display: -ms-inline-flexbox;
         display: inline-flex;
         margin-right: 12px;
     }
 }
 
 .user {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
 }
 
@@ -45,6 +69,7 @@
     width: 30px;
     height: 30px;
     border-radius: 50%;
+    -o-object-fit: cover;
     object-fit: cover;
     margin-left: 4px;
 }
@@ -54,9 +79,18 @@
     height: 150px;
     width: 100%;
     background: url("/assets/images/webb1.jpg") no-repeat center / cover;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
     justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
     flex-direction: column;
 }
 
@@ -83,7 +117,11 @@
 
 .title {
     font-size: 3.2rem;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
 }
 
@@ -101,12 +139,97 @@
 }
 
 .container {
-    margin-top: 24px;
     border-top: 2px solid #ccc;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
     overflow-y: auto;
 
     &::-webkit-scrollbar {
+        display: none;
+    }
+}
+
+.search {
+    margin-bottom: 4px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: end;
+    -ms-flex-pack: end;
+    justify-content: flex-end;
+}
+
+.search-control {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    width: 0;
+    overflow: hidden;
+    -webkit-transition: width 0.3s ease;
+    -o-transition: width 0.3s ease;
+    transition: width 0.3s ease;
+
+    &.show {
+        width: 184px;
+    }
+}
+
+.icon-delete,
+.icon-search {
+    display: -webkit-inline-box;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    cursor: pointer;
+    color: var(--text-second);
+}
+
+.icon-delete {
+    font-size: 2rem;
+
+    &:hover {
+        color: #585753;
+    }
+}
+
+.icon-search {
+    width: 24px;
+    height: 24px;
+    border-radius: 4px;
+    -webkit-transition: background-color 0.3s ease;
+    -o-transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+        background-color: var(--bg-hover);
+    }
+}
+
+.search-input {
+    margin: 0 8px;
+    width: 150px;
+
+    &:-moz-placeholder-shown ~ .icon-delete {
+        display: none;
+    }
+
+    &:-ms-input-placeholder ~ .icon-delete {
+        display: none;
+    }
+
+    &:placeholder-shown ~ .icon-delete {
         display: none;
     }
 }

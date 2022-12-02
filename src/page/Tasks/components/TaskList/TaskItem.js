@@ -10,6 +10,7 @@ import { deleteTask, editTask } from "../../../../actions/tasks";
 import { deleteTaskItem } from "../../../../actions/taskItems";
 import { useOutsideClick } from "../../../../hooks";
 import ModalDetail from "../ModalDetail";
+import { ModalDelete } from "../../../../components";
 
 // icons
 import { ImFileEmpty } from "react-icons/im";
@@ -33,10 +34,11 @@ const getQuantityComment = (currentComments) => {
     return count;
 };
 
-const TaskItem = ({ task, index, id, idList, status, label, createDate }) => {
+const TaskItem = ({ task, index, id, idList, status, label, createDate, endDate }) => {
     const [showEdit, setShowEdit] = useState(false);
-    const [value, setValue] = useState(task);
     const [showDetail, setShowDetail] = useState(false);
+    const [showModalDelete, setShowModalDelete] = useState(false);
+    const [value, setValue] = useState(task);
     const { flag } = useParams();
     const dispatch = useDispatch();
     const inputRef = useRef();
@@ -61,12 +63,19 @@ const TaskItem = ({ task, index, id, idList, status, label, createDate }) => {
     const handleShowEdit = () => {
         setShowEdit(true);
         setTimeout(() => {
+            // Move focus to End of textarea
+            const end = value.length;
+            inputRef.current.setSelectionRange(end, end);
             inputRef.current.focus();
         }, 0);
     };
 
     const handleCloseShowDetail = () => {
         setShowDetail(false);
+    };
+
+    const handleCloseModalDelete = () => {
+        setShowModalDelete(false);
     };
 
     return (
@@ -95,9 +104,8 @@ const TaskItem = ({ task, index, id, idList, status, label, createDate }) => {
                                         <span className={cx("add-icon")}>
                                             <ImFileEmpty />
                                         </span>
-                                        <input
+                                        <textarea
                                             ref={inputRef}
-                                            placeholder="Type a name..."
                                             className={cx("input")}
                                             type="text"
                                             value={value}
@@ -140,7 +148,7 @@ const TaskItem = ({ task, index, id, idList, status, label, createDate }) => {
                                         <BiEditAlt />
                                     </span>
                                     <span
-                                        onClick={handleDeleteTask}
+                                        onClick={() => setShowModalDelete(true)}
                                         className={cx("icon")}
                                     >
                                         <BsTrash />
@@ -156,6 +164,14 @@ const TaskItem = ({ task, index, id, idList, status, label, createDate }) => {
                                 label={label}
                                 task={task}
                                 createDate={createDate}
+                                endDate={endDate}
+                            />
+                        )}
+                        {showModalDelete && (
+                            <ModalDelete
+                                onClose={handleCloseModalDelete}
+                                onDelete={handleDeleteTask}
+                                deleteObj={{ title: "this task" }}
                             />
                         )}
                     </div>
@@ -173,6 +189,7 @@ TaskItem.propTypes = {
     status: PropTypes.string,
     label: PropTypes.string,
     createDate: PropTypes.string,
+    endDate: PropTypes.string,
 };
 
 export default TaskItem;

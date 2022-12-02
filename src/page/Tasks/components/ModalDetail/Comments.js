@@ -7,7 +7,7 @@ import styles from "./ModalDetail.module.scss";
 import Comment from "./Comment";
 import userImage from "../../../../assets/images/me.jpg";
 import { addComment } from "../../../../actions/taskItems";
-import { getCurrentTimeToSecond, randomId } from "../../../../utils";
+import { getCurrentTimeToSecond, getRandomId } from "../../../../utils";
 
 // icons
 import { BsFillArrowUpCircleFill } from "react-icons/bs";
@@ -20,7 +20,7 @@ const Comments = ({ taskItem, idTaskItem }) => {
 
     const handleAddComment = () => {
         const comment = {
-            id: randomId(),
+            id: getRandomId(),
             text: value,
             createDate: getCurrentTimeToSecond(),
             replies: [],
@@ -34,11 +34,7 @@ const Comments = ({ taskItem, idTaskItem }) => {
     return (
         <div className={cx("comments")}>
             {taskItem.comments.map((comment) => (
-                <Comment
-                    key={comment.id}
-                    {...comment}
-                    idTaskItem={idTaskItem}
-                />
+                <Comment key={comment.id} {...comment} idTaskItem={idTaskItem} />
             ))}
             <div className={cx("add-comment")}>
                 <img className={cx("image")} src={userImage} alt="Me" />

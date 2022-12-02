@@ -1,9 +1,13 @@
 .content {
-    padding: 24px 48px;
+    padding: 24px;
     background-color: #fff;
     border-radius: 4px;
     color: rgba(55, 53, 47, 0.65);
     font-size: 1.4rem;
+
+    @media (min-width: 740px) {
+        padding: 24px 48px;
+    }
 }
 
 .title {
@@ -18,19 +22,31 @@
 
 .detail {
     margin-bottom: 8px;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
 }
 
 .item {
     width: 50%;
     height: 30px;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
 }
 
 .icon {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
     justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
     margin-right: 8px;
     font-size: 1.8rem;
@@ -84,6 +100,8 @@
         height: 16px;
         border: solid rgb(204, 204, 204);
         border-width: 0 2px 2px 0;
+        -webkit-transform: rotate(90deg);
+        -ms-transform: rotate(90deg);
         transform: rotate(90deg);
         border-radius: 0 0 6px 0;
     }
@@ -95,11 +113,15 @@
 
 .comment-block {
     &:hover .actions {
+        display: -webkit-box;
+        display: -ms-flexbox;
         display: flex;
     }
 }
 
 .user-info {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
 }
 
@@ -126,15 +148,25 @@
     right: 0;
     top: 4px;
     display: none;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
 }
 
 .action {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
     justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
     font-size: 1.8rem;
     cursor: pointer;
+    -webkit-transition: color 0.3s ease;
+    -o-transition: color 0.3s ease;
     transition: color 0.3s ease;
 
     &:first-child {
@@ -148,7 +180,11 @@
 
 .add-comment {
     padding: 4px 0;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
 }
 
@@ -157,21 +193,28 @@
     width: 20px;
     height: 20px;
     border-radius: 50%;
+    -o-object-fit: cover;
     object-fit: cover;
     margin-right: 8px;
     z-index: 10;
 }
 
 .input {
+    -webkit-box-flex: 1;
+    -ms-flex: 1;
     flex: 1;
     font-size: 1.4rem;
 }
 
 .submit {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
     font-size: 2rem;
     cursor: pointer;
     color: #2383e2;
+    -webkit-transition: color 0.3s ease;
+    -o-transition: color 0.3s ease;
     transition: color 0.3s ease;
 
     &.disable {
@@ -187,6 +230,8 @@
 
 .add-subtask {
     cursor: pointer;
+    display: -webkit-inline-box;
+    display: -ms-inline-flexbox;
     display: inline-flex;
     border-radius: 4px;
     padding: 8px 8px 8px 4px;
@@ -202,6 +247,8 @@
     cursor: pointer;
 
     &:hover .delete-subtask {
+        display: -webkit-box;
+        display: -ms-flexbox;
         display: flex;
     }
 
@@ -211,6 +258,8 @@
 }
 
 .subtask-block {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
 }
 
@@ -227,6 +276,8 @@
         border: 1px solid rgba(55, 53, 47, 0.65);
         position: absolute;
         top: 50%;
+        -webkit-transform: translateY(-50%);
+        -ms-transform: translateY(-50%);
         transform: translateY(-50%);
         left: -27px;
         border-radius: 4px;
@@ -241,11 +292,15 @@
         height: 10px;
         border: solid white;
         border-width: 0 3px 3px 0;
+        -webkit-transform: rotate(45deg);
+        -ms-transform: rotate(45deg);
         transform: rotate(45deg);
     }
 }
 
 .text-subtask {
+    -webkit-box-flex: 1;
+    -ms-flex: 1;
     flex: 1;
     padding: 4px 0;
 }
@@ -271,15 +326,25 @@
     cursor: pointer;
     position: absolute;
     top: 50%;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
     transform: translateY(-50%);
     right: 12px;
     display: none;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
     justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
     width: 20px;
     height: 20px;
     border-radius: 4px;
+    -webkit-box-shadow: rgb(15 15 15 / 10%) 0px 0px 0px 1px,
+        rgb(15 15 15 / 10%) 0px 2px 4px;
     box-shadow: rgb(15 15 15 / 10%) 0px 0px 0px 1px, rgb(15 15 15 / 10%) 0px 2px 4px;
+    -webkit-transition: background-color 0.3s ease;
+    -o-transition: background-color 0.3s ease;
     transition: background-color 0.3s ease;
 
     &:hover {

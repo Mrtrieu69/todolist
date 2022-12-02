@@ -6,7 +6,7 @@ import { useDispatch } from "react-redux";
 import styles from "./ModalDetail.module.scss";
 import SubTask from "./SubTask";
 import { useOutsideClick } from "../../../../hooks";
-import { randomId } from "../../../../utils";
+import { getRandomId } from "../../../../utils";
 import { addSubTaskItem } from "../../../../actions/taskItems";
 
 // icons
@@ -20,7 +20,7 @@ const SubTasks = ({ taskItem, idTaskItem }) => {
     const [checkbox, setCheckbox] = useState(false);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    const id = useMemo(() => randomId(), [showAddSubTask]);
+    const id = useMemo(() => getRandomId(), [showAddSubTask]);
 
     const inputRef = useRef();
     const dispatch = useDispatch();

@@ -2,7 +2,7 @@ import { useState } from "react";
 import classNames from "classnames/bind";
 import PropTypes from "prop-types";
 import { useDispatch, useSelector } from "react-redux";
-import { randomId, getFlag } from "../../utils";
+import { getRandomId, getFlag } from "../../utils";
 
 import styles from "./Home.module.scss";
 import { Modal } from "../../components";
@@ -22,7 +22,7 @@ const ModalForm = ({ onClose }) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        const id = randomId();
+        const id = getRandomId();
         const flag = getFlag(title.trim());
 
         const isAlready = projects.find((project) => project.flag === flag);

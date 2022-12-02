@@ -3,11 +3,20 @@
     width: calc(100% - 48px);
     height: 100vh;
     margin: 0 auto;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
     flex-direction: column;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
 
     @media (min-width: 740px) {
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
         justify-content: center;
     }
 }
@@ -17,6 +26,8 @@
     margin-top: 24px;
 
     @media (min-width: 740px) {
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
         justify-content: center;
     }
 }
@@ -43,10 +54,17 @@
     height: 140px;
     padding: 8px;
     border-radius: 8px;
-    background: url("/assets/images/img-project.jpg") no-repeat center / cover;
+    background: url("/assets/images/webb1.jpg") no-repeat center / cover;
     color: #fff;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
     flex-direction: column;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
     justify-content: space-between;
 
     &.no-bg {
@@ -59,8 +77,14 @@
             height: 100%;
             color: #000;
             font-size: 6rem;
+            display: -webkit-box;
+            display: -ms-flexbox;
             display: flex;
+            -webkit-box-pack: center;
+            -ms-flex-pack: center;
             justify-content: center;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
             align-items: center;
         }
     }
@@ -68,12 +92,14 @@
 
 .title {
     font-size: 2rem;
+    -o-text-overflow: ellipsis;
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
 }
 
 .disc {
+    -o-text-overflow: ellipsis;
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
@@ -81,18 +107,30 @@
 
 .close {
     position: absolute;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
     justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
     top: 4px;
     right: 4px;
     font-size: 2.4rem;
+    -webkit-transition: -webkit-transform 0.3s ease;
+    transition: -webkit-transform 0.3s ease;
+    -o-transition: transform 0.3s ease;
     transition: transform 0.3s ease;
+    transition: transform 0.3s ease, -webkit-transform 0.3s ease;
     z-index: 2;
     color: #fff;
     cursor: pointer;
 
     &:hover {
+        -webkit-transform: rotate(180deg);
+        -ms-transform: rotate(180deg);
         transform: rotate(180deg);
     }
 }
@@ -111,7 +149,12 @@
 
 .form-group {
     margin-top: 24px;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
     flex-direction: column;
 }
 
@@ -126,6 +169,7 @@
     background-color: #fafbfc;
     border: none;
     border-radius: 4px;
+    -webkit-box-shadow: inset 0 0 0 2px #dfe1e6;
     box-shadow: inset 0 0 0 2px #dfe1e6;
     display: block;
     line-height: 20px;
@@ -147,10 +191,12 @@
 
     &:focus {
         background-color: #fff;
+        -webkit-box-shadow: inset 0 0 0 2px #0079bf;
         box-shadow: inset 0 0 0 2px #0079bf;
     }
 
     &.error {
+        -webkit-box-shadow: inset 0 0 0 2px #eb5757;
         box-shadow: inset 0 0 0 2px #eb5757;
     }
 }
@@ -165,7 +211,12 @@
     padding: 12px 24px;
     font-size: 1.4rem;
     cursor: pointer;
+    -webkit-transition: background-color 0.3s ease;
+    -o-transition: background-color 0.3s ease;
     transition: background-color 0.3s ease;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
     user-select: none;
 
     &:hover {
@@ -185,46 +236,18 @@
     font-size: 1.4rem;
 }
 
-// Modal Delete
-.body-delete {
-    background-color: #fff;
-    border-radius: 4px;
-    text-align: center;
-    padding: 12px;
-    animation: fade-down 0.3s ease;
-}
-
-.actions {
-    margin-top: 12px;
-    display: flex;
-    justify-content: center;
-    column-gap: 12px;
-
-    & .delete {
-        padding: 8px 12px;
-        background-color: red;
-        border-radius: 4px;
-        color: white;
-        cursor: pointer;
-    }
-
-    & .cancel {
-        padding: 8px 12px;
-        background-color: black;
-        border-radius: 4px;
-        color: white;
-        cursor: pointer;
-    }
-}
-
 // animations
 @keyframes fade-down {
     0% {
         opacity: 0;
+        -webkit-transform: translateY(-100%);
+        -ms-transform: translateY(-100%);
         transform: translateY(-100%);
     }
     100% {
         opacity: 1;
+        -webkit-transform: translateY(0);
+        -ms-transform: translateY(0);
         transform: translateY(0);
     }
 }

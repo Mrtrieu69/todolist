@@ -1,7 +1,7 @@
-import { randomId, getFlag } from "../utils";
+import { getRandomId, getFlag } from "../utils";
 
-const id = randomId();
-const flag = getFlag("Housework");
+const id = getRandomId();
+const flag = getFlag("Homework");
 
 const PROJECTS_DEFAULT = {
     list: [
@@ -9,8 +9,8 @@ const PROJECTS_DEFAULT = {
             id,
             path: `/tasks/${flag}`,
             flag,
-            title: "Housework",
-            desc: "Housework by Mom",
+            title: "Homework",
+            desc: "Homework from the university",
         },
     ],
 };

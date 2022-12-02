@@ -23,9 +23,14 @@ const Modal = ({ onClose, children, disableEsc = false }) => {
                 onClose();
             }
         };
+
+        document.body.style.overflow = "hidden";
+
         if (!disableEsc) document.addEventListener("keydown", handleKeydown);
 
         return () => {
+            document.body.style.overflow = "unset";
+
             if (!disableEsc) document.removeEventListener("keydown", handleKeydown);
         };
     });

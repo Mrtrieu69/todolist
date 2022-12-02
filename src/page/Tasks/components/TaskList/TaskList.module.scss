@@ -1,6 +1,7 @@
 .wrapper {
     padding: 0 12px;
     width: 287px;
+    -ms-flex-negative: 0;
     flex-shrink: 0;
 }
 
@@ -9,6 +10,8 @@
 }
 
 .header {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
     margin-bottom: 10px;
 }
@@ -53,6 +56,8 @@
     &.adding .card {
         background-color: #fff;
         padding: 8px 10px;
+        display: -webkit-box;
+        display: -ms-flexbox;
         display: flex;
     }
 
@@ -62,20 +67,20 @@
 }
 
 .card {
-    box-shadow: rgb(15 15 15 / 10%) 0px 0px 0px 1px,
+    -webkit-box-shadow: rgb(15 15 15 / 10%) 0px 0px 0px 1px,
         rgb(15 15 15 / 10%) 0px 2px 4px;
+    box-shadow: rgb(15 15 15 / 10%) 0px 0px 0px 1px, rgb(15 15 15 / 10%) 0px 2px 4px;
     border-radius: 4px;
     cursor: pointer;
     background-color: #fff;
+    -webkit-transition: background-color 0.3s ease;
+    -o-transition: background-color 0.3s ease;
     transition: background-color 0.3s ease;
 }
 
 .task {
     padding: 8px 10px;
-    width: calc(100% - 56px);
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
+    width: 100%;
 
     & .order {
         margin-right: 4px;
@@ -83,6 +88,8 @@
 }
 
 .controls {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
     opacity: 0;
     position: absolute;
@@ -92,17 +99,27 @@
     top: 6px;
     right: 8px;
     overflow: hidden;
+    -webkit-transition: opacity 0.3s ease;
+    -o-transition: opacity 0.3s ease;
     transition: opacity 0.3s ease;
 }
 
 .icon {
     cursor: pointer;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
     justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
     width: 24px;
     height: 24px;
     background-color: #fff;
+    -webkit-transition: background-color 0.3s ease;
+    -o-transition: background-color 0.3s ease;
     transition: background-color 0.3s ease;
 
     &:hover {
@@ -116,11 +133,17 @@
 
 .add {
     padding: 6px;
+    -webkit-transition: background-color 0.3s ease;
+    -o-transition: background-color 0.3s ease;
     transition: background-color 0.3s ease;
     border-radius: 4px;
     cursor: pointer;
     color: rgba(55, 53, 47, 0.5);
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
 
     &:hover {
@@ -129,25 +152,40 @@
 }
 
 .plus {
+    display: -webkit-inline-box;
+    display: -ms-inline-flexbox;
     display: inline-flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
     justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
     margin-right: 4px;
 }
 
 .add-icon {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -ms-grid-column-align: start;
     justify-self: start;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
     margin-right: 10px;
+    max-height: 22px;
 }
 
 .input {
     width: 100%;
     font-size: 1.6rem;
+    resize: vertical;
 }
 
 .detail-quantity {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
 }
 
@@ -155,14 +193,23 @@
     margin-top: 8px;
     color: var(--text-second);
     font-size: 1.4rem;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
     margin-right: 12px;
 }
 
 .comment-icon {
+    display: -webkit-inline-box;
+    display: -ms-inline-flexbox;
     display: inline-flex;
+    -ms-grid-column-align: center;
     justify-self: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
     margin-right: 4px;
 }

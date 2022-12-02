@@ -1,51 +1,60 @@
-import { randomId } from "../utils";
+import { getRandomId } from "../utils";
 
 const TASK_ITEMS_DEFAULT = {
-    22635345: {
-        comments: [
-            {
-                id: randomId(),
-                text: "The first comment..",
-                createDate: "December 1, 2022 21:45:23",
-                replies: [
-                    {
-                        id: randomId(),
-                        text: "Test sub comment",
-                        createDate: "December 1, 2022 21:50:10",
-                    },
-                    {
-                        id: randomId(),
-                        text: "Test sub comment 2",
-                        createDate: "December 1, 2022 21:55:10",
-                    },
-                ],
-            },
-        ],
-        subTaskItems: [
-            { id: randomId(), subTask: "First sub Task", status: true },
-            { id: randomId(), subTask: "Second sub Task", status: false },
-        ],
-    },
-    8678565412: {
-        comments: [],
-        subTaskItems: [],
-    },
     784628365: {
         comments: [
             {
-                id: randomId(),
-                text: "The first comment..",
+                id: getRandomId(),
+                text: "It's in the shared folder of the group",
                 createDate: "December 1, 2022 21:45:23",
                 replies: [],
             },
         ],
         subTaskItems: [],
     },
+    8678565412: {
+        comments: [],
+        subTaskItems: [],
+    },
+    22635345: {
+        comments: [
+            {
+                id: getRandomId(),
+                text: "Could'n do the 23rd exercise",
+                createDate: "December 1, 2022 21:45:23",
+                replies: [
+                    {
+                        id: getRandomId(),
+                        text: "Found a solution in VK",
+                        createDate: "December 1, 2022 21:50:10",
+                    },
+                    {
+                        id: getRandomId(),
+                        text: "Done!",
+                        createDate: "December 1, 2022 21:55:10",
+                    },
+                ],
+            },
+        ],
+        subTaskItems: [
+            { id: getRandomId(), subTask: "Do exercise 23, 24 (page 92)", status: true },
+            { id: getRandomId(), subTask: "Rewrite new words 10 times", status: false },
+        ],
+    },
     65978373: {
         comments: [],
         subTaskItems: [
-            { id: randomId(), subTask: "Test sub task", status: false },
-            { id: randomId(), subTask: "Test sub task 2", status: false },
+            { id: getRandomId(), subTask: "Definition of IoT", status: false },
+            {
+                id: getRandomId(),
+                subTask: "How the IoT works",
+                status: false,
+            },
+            {
+                id: getRandomId(),
+                subTask: "Application in life",
+                status: false,
+            },
         ],
     },
 };

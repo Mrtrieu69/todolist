@@ -1,16 +1,17 @@
 import classNames from "classnames/bind";
 import PropTypes from "prop-types";
-import { useMemo, useRef, useState } from "react";
+import { useRef, useState } from "react";
 
 import styles from "./ModalDetail.module.scss";
 import userImage from "../../../../assets/images/me.jpg";
-import { getCurrentTimeToSecond, getTimeFromNow, randomId } from "../../../../utils";
+import { getCurrentTimeToSecond, getTimeFromNow, getRandomId } from "../../../../utils";
 import { useDispatch } from "react-redux";
 import {
     deleteComment,
     deleteReplyComment,
     addReplyComment,
 } from "../../../../actions/taskItems";
+import { useOutsideClick } from "../../../../hooks";
 
 // icons
 import { FaRegComment } from "react-icons/fa";
@@ -42,8 +43,10 @@ const Comment = ({ text, id, replies = [], createDate, idTaskItem }) => {
     };
 
     const handleAddReplyComment = () => {
+        if (value.trim().length === 0) return;
+
         const reply = {
-            id: randomId(),
+            id: getRandomId(),
             text: value,
             createDate: getCurrentTimeToSecond(),
         };
@@ -52,6 +55,8 @@ const Comment = ({ text, id, replies = [], createDate, idTaskItem }) => {
         setValue("");
         setShowReply(false);
     };
+
+    const ref = useOutsideClick(handleAddReplyComment, showReply, setShowReply, setValue);
 
     return (
         <div className={cx("comment")}>
@@ -100,7 +105,7 @@ const Comment = ({ text, id, replies = [], createDate, idTaskItem }) => {
                 </div>
             ))}
             {showReply && (
-                <div className={cx("add-comment")}>
+                <div ref={ref} className={cx("add-comment")}>
                     <img className={cx("image")} src={userImage} alt="Me" />
                     <input
                         ref={inputRef}
