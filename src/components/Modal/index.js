@@ -19,7 +19,7 @@ if (!modalRoot) {
     modalRoot = modalRootDiv;
 }
 
-const Modal = ({ onClose, children, disableEsc = false }) => {
+const Modal = ({ onClose, children }) => {
     useEffect(() => {
         const handleKeydown = (e) => {
             if (e.code === "Escape") {
@@ -28,13 +28,11 @@ const Modal = ({ onClose, children, disableEsc = false }) => {
         };
 
         document.body.style.overflow = "hidden";
-
-        if (!disableEsc) document.addEventListener("keydown", handleKeydown);
+        document.addEventListener("keydown", handleKeydown);
 
         return () => {
             document.body.style.overflow = "unset";
-
-            if (!disableEsc) document.removeEventListener("keydown", handleKeydown);
+            document.removeEventListener("keydown", handleKeydown);
         };
     });
 
@@ -55,7 +53,6 @@ const Modal = ({ onClose, children, disableEsc = false }) => {
 Modal.propTypes = {
     onClose: PropTypes.func.isRequired,
     children: PropTypes.node.isRequired,
-    disableEsc: PropTypes.bool,
 };
 
 export default Modal;

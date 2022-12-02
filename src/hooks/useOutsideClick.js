@@ -6,7 +6,8 @@ const useOutsideClick = (
     showAction,
     setShowAction,
     setValue,
-    value = ""
+    value = "",
+    noSubmitWhenClickOutside = false
 ) => {
     const ref = useRef();
 
@@ -15,6 +16,7 @@ const useOutsideClick = (
             if (ref.current && !ref.current.contains(event.target)) {
                 setShowAction(false);
                 setValue(value);
+                if (noSubmitWhenClickOutside) return;
                 handleAction();
             }
         };
@@ -27,20 +29,21 @@ const useOutsideClick = (
             }
             setValue(value);
             setShowAction(false);
+            e.stopPropagation();
         };
 
         if (showAction) {
             setTimeout(() => {
-                document.addEventListener("click", handleClick);
-                document.addEventListener("keydown", handleKeydown);
+                document.body.addEventListener("click", handleClick);
+                document.body.addEventListener("keydown", handleKeydown);
             }, 0);
         }
 
         return () => {
             if (showAction) {
                 setTimeout(() => {
-                    document.removeEventListener("click", handleClick);
-                    document.removeEventListener("keydown", handleKeydown);
+                    document.body.removeEventListener("click", handleClick);
+                    document.body.removeEventListener("keydown", handleKeydown);
                 }, 0);
             }
         };
@@ -56,6 +59,7 @@ useOutsideClick.propTypes = {
     setValue: PropTypes.func.isRequired,
     setShowAction: PropTypes.func.isRequired,
     value: PropTypes.string,
+    noSubmitWhenClickOutside: PropTypes.bool,
 };
 
 export default useOutsideClick;

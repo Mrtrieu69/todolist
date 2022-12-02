@@ -41,7 +41,7 @@ const ModalDetail = ({
     }, [taskItems]);
 
     return (
-        <Modal onClose={onClose} disableEsc>
+        <Modal onClose={onClose}>
             <div className={cx("content")}>
                 <h2 className={cx("title")}>{task}</h2>
                 <div className={cx("details")}>

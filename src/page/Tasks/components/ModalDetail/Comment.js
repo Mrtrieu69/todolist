@@ -56,7 +56,14 @@ const Comment = ({ text, id, replies = [], createDate, idTaskItem }) => {
         setShowReply(false);
     };
 
-    const ref = useOutsideClick(handleAddReplyComment, showReply, setShowReply, setValue);
+    const ref = useOutsideClick(
+        handleAddReplyComment,
+        showReply,
+        setShowReply,
+        setValue,
+        "",
+        true
+    );
 
     return (
         <div className={cx("comment")}>
