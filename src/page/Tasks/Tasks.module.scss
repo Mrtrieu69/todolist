@@ -50,13 +50,39 @@
 }
 
 .banner {
+    position: relative;
     height: 150px;
     width: 100%;
-    object-fit: cover;
-    object-position: center;
+    background: url("/assets/images/webb1.jpg") no-repeat center / cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.banner-title {
+    font-size: 4.6rem;
+    line-height: 1.25;
+    font-style: italic;
+    text-align: center;
+    -webkit-text-fill-color: transparent;
+    background: -webkit-linear-gradient(0deg, #d9afd9 0%, #97d9e1 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+
+    @media (min-width: 740px) {
+        font-size: 6rem;
+    }
+}
+
+.banner-desc {
+    font-size: 1.6rem;
+    color: white;
+    margin-top: 8px;
 }
 
 .title {
+    font-size: 3.2rem;
     display: flex;
     align-items: center;
 }

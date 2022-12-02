@@ -4,7 +4,7 @@ import tasksReducer from "./tasks";
 import taskItemsReducer from "./taskItems";
 
 const rootReducer = combineReducers({
-    project: projectReducer,
+    projects: projectReducer,
     tasks: tasksReducer,
     taskItems: taskItemsReducer,
 });

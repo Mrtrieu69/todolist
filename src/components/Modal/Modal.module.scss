@@ -15,11 +15,35 @@
     z-index: -1;
 }
 
+.content {
+    animation: fade-down 0.3s ease;
+    width: calc(100% - 24px);
+
+    @media (min-width: 740px) and (max-width: 1023px) {
+        width: 60%;
+    }
+
+    @media (min-width: 1024px) {
+        width: 40%;
+    }
+}
+
 @keyframes fade {
     0% {
         opacity: 0;
     }
     100% {
         opacity: 1;
+    }
+}
+
+@keyframes fade-down {
+    0% {
+        opacity: 0;
+        transform: translateY(-50%);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
     }
 }

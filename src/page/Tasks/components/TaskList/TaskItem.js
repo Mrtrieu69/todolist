@@ -3,7 +3,7 @@ import classNames from "classnames/bind";
 import PropTypes from "prop-types";
 import { Draggable } from "react-beautiful-dnd";
 import { useParams } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import styles from "./TaskList.module.scss";
 import { deleteTask, editTask } from "../../../../actions/tasks";
@@ -15,16 +15,33 @@ import ModalDetail from "../ModalDetail";
 import { ImFileEmpty } from "react-icons/im";
 import { BsTrash } from "react-icons/bs";
 import { BiEditAlt } from "react-icons/bi";
+import { FaRegComment, FaTasks } from "react-icons/fa";
 
 const cx = classNames.bind(styles);
 
-const TaskItem = ({ task, index, id, idList, status, label }) => {
+const getQuantityComment = (currentComments) => {
+    let count = 0;
+
+    count += currentComments.length;
+
+    currentComments.forEach((comment) => {
+        if (comment.replies.length > 0) {
+            count += comment.replies.length;
+        }
+    });
+
+    return count;
+};
+
+const TaskItem = ({ task, index, id, idList, status, label, createDate }) => {
     const [showEdit, setShowEdit] = useState(false);
     const [value, setValue] = useState(task);
     const [showDetail, setShowDetail] = useState(false);
     const { flag } = useParams();
     const dispatch = useDispatch();
     const inputRef = useRef();
+
+    const currentTaskItem = useSelector((state) => state.taskItems[id]);
 
     const handleDeleteTask = () => {
         dispatch(deleteTask({ id, flag, idList }));
@@ -39,13 +56,7 @@ const TaskItem = ({ task, index, id, idList, status, label }) => {
         }
     };
 
-    const ref = useOutsideClick(
-        handleEdit,
-        showEdit,
-        setShowEdit,
-        setValue,
-        value
-    );
+    const ref = useOutsideClick(handleEdit, showEdit, setShowEdit, setValue, value);
 
     const handleShowEdit = () => {
         setShowEdit(true);
@@ -90,29 +101,42 @@ const TaskItem = ({ task, index, id, idList, status, label }) => {
                                             className={cx("input")}
                                             type="text"
                                             value={value}
-                                            onChange={(e) =>
-                                                setValue(e.target.value)
-                                            }
+                                            onChange={(e) => setValue(e.target.value)}
                                         />
                                     </>
                                 ) : (
-                                    <p
+                                    <div
                                         onClick={() => setShowDetail(true)}
                                         className={cx("task")}
                                     >
-                                        <span className={cx("order")}>
-                                            {index + 1}.
-                                        </span>
+                                        <span className={cx("order")}>{index + 1}.</span>
                                         {task}
-                                    </p>
+                                        <div className={cx("detail-quantity")}>
+                                            {currentTaskItem.comments.length > 0 && (
+                                                <div className={cx("comment-quantity")}>
+                                                    <span className={cx("comment-icon")}>
+                                                        <FaRegComment />
+                                                    </span>
+                                                    {getQuantityComment(
+                                                        currentTaskItem.comments
+                                                    )}
+                                                </div>
+                                            )}
+                                            {currentTaskItem.subTaskItems.length > 0 && (
+                                                <div className={cx("comment-quantity")}>
+                                                    <span className={cx("comment-icon")}>
+                                                        <FaTasks />
+                                                    </span>
+                                                    {currentTaskItem.subTaskItems.length}
+                                                </div>
+                                            )}
+                                        </div>
+                                    </div>
                                 )}
                             </div>
                             {!showEdit && (
                                 <div className={cx("controls")}>
-                                    <span
-                                        onClick={handleShowEdit}
-                                        className={cx("icon")}
-                                    >
+                                    <span onClick={handleShowEdit} className={cx("icon")}>
                                         <BiEditAlt />
                                     </span>
                                     <span
@@ -131,6 +155,7 @@ const TaskItem = ({ task, index, id, idList, status, label }) => {
                                 id={id}
                                 label={label}
                                 task={task}
+                                createDate={createDate}
                             />
                         )}
                     </div>
@@ -147,6 +172,7 @@ TaskItem.propTypes = {
     idList: PropTypes.string,
     status: PropTypes.string,
     label: PropTypes.string,
+    createDate: PropTypes.string,
 };
 
 export default TaskItem;

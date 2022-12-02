@@ -9,7 +9,7 @@ import styles from "./TaskList.module.scss";
 import TaskItem from "./TaskItem";
 import { addNewTask } from "../../../../actions/tasks";
 import { addNewTaskItem } from "../../../../actions/taskItems";
-import { randomId } from "../../../../utils";
+import { randomId, getCurrentTime } from "../../../../utils";
 import { useOutsideClick } from "../../../../hooks";
 
 // icons
@@ -36,11 +36,14 @@ const TaskList = ({ status, label, taskList, idList }) => {
         if (value.trim().length === 0) return;
 
         const id = randomId();
+        const createDate = getCurrentTime();
 
         const task = {
             task: value,
             id,
+            createDate,
         };
+
         dispatch(addNewTask({ idList, task, flag }));
         dispatch(addNewTaskItem(id));
     };

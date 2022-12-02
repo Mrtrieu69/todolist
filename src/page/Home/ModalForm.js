@@ -1,7 +1,7 @@
 import { useState } from "react";
 import classNames from "classnames/bind";
 import PropTypes from "prop-types";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { randomId, getFlag } from "../../utils";
 
 import styles from "./Home.module.scss";
@@ -14,25 +14,39 @@ const cx = classNames.bind(styles);
 const ModalForm = ({ onClose }) => {
     const [title, setTitle] = useState("");
     const [desc, setDesc] = useState("");
+    const [isError, setIsError] = useState(false);
+
+    const projects = useSelector((state) => state.projects.list);
 
     const dispatch = useDispatch();
 
     const handleSubmit = (e) => {
         e.preventDefault();
         const id = randomId();
-        const flag = getFlag(title);
+        const flag = getFlag(title.trim());
 
-        dispatch(
-            addNewProject({
-                id,
-                title,
-                desc,
-                path: `/tasks/${flag}`,
-                flag,
-            })
-        );
-        dispatch(addNewTaskList(flag));
-        onClose();
+        const isAlready = projects.find((project) => project.flag === flag);
+
+        if (!isAlready) {
+            dispatch(
+                addNewProject({
+                    id,
+                    title,
+                    desc,
+                    path: `/tasks/${flag}`,
+                    flag,
+                })
+            );
+            dispatch(addNewTaskList(flag));
+            onClose();
+        } else {
+            setIsError(true);
+        }
+    };
+
+    const handleOnchange = (value) => {
+        setTitle(value);
+        setIsError(false);
     };
 
     return (
@@ -43,16 +57,19 @@ const ModalForm = ({ onClose }) => {
                     <label className={cx("form-label")}>Project name</label>
                     <input
                         value={title}
-                        onChange={(e) => setTitle(e.target.value)}
+                        onChange={(e) => handleOnchange(e.target.value)}
                         type="text"
-                        className={cx("form-control")}
+                        className={cx("form-control", { error: isError })}
                         placeholder="English project"
                     />
+                    {isError && (
+                        <p className={cx("text-error")}>
+                            This project name already exists.
+                        </p>
+                    )}
                 </div>
                 <div className={cx("form-group")}>
-                    <label className={cx("form-label")}>
-                        Project description
-                    </label>
+                    <label className={cx("form-label")}>Project description</label>
                     <textarea
                         value={desc}
                         onChange={(e) => setDesc(e.target.value)}

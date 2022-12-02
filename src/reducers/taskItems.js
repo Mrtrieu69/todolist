@@ -1,8 +1,6 @@
 import { TASK_ITEMS_DEFAULT } from "../data";
 
-const taskItemsFromLocalStorage = JSON.parse(
-    localStorage.getItem("task_items")
-);
+const taskItemsFromLocalStorage = JSON.parse(localStorage.getItem("task_items"));
 
 const taskItemsReducer = (
     state = taskItemsFromLocalStorage || TASK_ITEMS_DEFAULT,
@@ -15,7 +13,6 @@ const taskItemsReducer = (
                 comments: [],
                 subTaskItems: [],
             };
-            console.log(action.payload);
 
             localStorage.setItem("task_items", JSON.stringify(newState));
             return newState;
@@ -48,7 +45,6 @@ const taskItemsReducer = (
         }
 
         case "UPDATE_STATUS_SUB_TASK_ITEM": {
-            console.log(action.payload);
             const { idTaskItem, index, status } = action.payload;
 
             const taskItem = state[idTaskItem];
@@ -71,7 +67,6 @@ const taskItemsReducer = (
             const taskItem = state[idTaskItem];
             const newSubTaskItems = taskItem.subTaskItems;
             newSubTaskItems.splice(index, 1);
-            console.log(newSubTaskItems);
 
             return {
                 ...state,
@@ -94,6 +89,73 @@ const taskItemsReducer = (
                 [idTaskItem]: {
                     ...state[idTaskItem],
                     subTaskItems: newSubTaskItems,
+                },
+            };
+        }
+
+        case "ADD_COMMENT": {
+            const { idTaskItem, ...comment } = action.payload;
+            const taskItem = state[idTaskItem];
+            taskItem.comments.push(comment);
+
+            return {
+                ...state,
+                [idTaskItem]: taskItem,
+            };
+        }
+
+        case "ADD_REPLY_COMMENT": {
+            const { idTaskItem, idComment, reply } = action.payload;
+            const taskItem = state[idTaskItem];
+            const currentComment = taskItem.comments.find(
+                (comment) => comment.id === idComment
+            );
+
+            currentComment.replies.push(reply);
+
+            return {
+                ...state,
+                [idTaskItem]: {
+                    ...state[idTaskItem],
+                    comments: taskItem.comments,
+                },
+            };
+        }
+
+        case "DELETE_COMMENT": {
+            const { idTaskItem, id } = action.payload;
+            const newComments = state[idTaskItem].comments.filter(
+                (comment) => comment.id !== id
+            );
+
+            return {
+                ...state,
+                [idTaskItem]: {
+                    ...state[idTaskItem],
+                    comments: newComments,
+                },
+            };
+        }
+
+        case "DELETE_REPLY_COMMENT": {
+            const { idComment, idTaskItem, id } = action.payload;
+            const taskItem = state[idTaskItem];
+            const currentComment = taskItem.comments.find(
+                (comment) => comment.id === idComment
+            );
+            const indexCurrentComment = taskItem.comments.findIndex(
+                (comment) => comment.id === idComment
+            );
+
+            const newReplies = currentComment.replies.filter((reply) => reply.id !== id);
+            const newComment = { ...currentComment, replies: newReplies };
+            taskItem.comments.splice(indexCurrentComment, 1, newComment);
+
+            return {
+                ...state,
+                [idTaskItem]: {
+                    ...state[idTaskItem],
+                    comments: taskItem.comments,
                 },
             };
         }

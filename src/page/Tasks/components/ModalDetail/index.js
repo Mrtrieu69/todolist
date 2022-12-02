@@ -1,20 +1,15 @@
 import classNames from "classnames/bind";
 import PropTypes from "prop-types";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useSelector } from "react-redux";
 
 import styles from "./ModalDetail.module.scss";
 import { Modal } from "../../../../components";
-import userImage from "../../../../assets/img/me.jpg";
-import Comment from "./Comment";
 
 // icons
-import {
-    BsCaretUpSquare,
-    BsCalendarDate,
-    BsFillArrowUpCircleFill,
-} from "react-icons/bs";
+import { BsCaretUpSquare, BsCalendarDate } from "react-icons/bs";
 import SubTasks from "./SubTasks";
+import Comments from "./Comments";
 
 const cx = classNames.bind(styles);
 
@@ -24,8 +19,8 @@ const ModalDetail = ({
     status: statusTaskItem,
     label,
     task,
+    createDate,
 }) => {
-    const [value, setValue] = useState("");
     const taskItems = useSelector((state) => state.taskItems);
     const taskItem = taskItems[idTaskItem];
 
@@ -34,7 +29,7 @@ const ModalDetail = ({
     }, [taskItems]);
 
     return (
-        <Modal onClose={onClose}>
+        <Modal onClose={onClose} disableEsc>
             <div className={cx("content")}>
                 <h2 className={cx("title")}>{task}</h2>
                 <div className={cx("details")}>
@@ -45,9 +40,7 @@ const ModalDetail = ({
                             </span>
                             Date Created
                         </div>
-                        <div className={cx("item", "text")}>
-                            November 29, 2022 4:09 PM
-                        </div>
+                        <div className={cx("item", "text")}>{createDate}</div>
                     </div>
                     <div className={cx("detail")}>
                         <div className={cx("item")}>
@@ -67,28 +60,7 @@ const ModalDetail = ({
                         </div>
                     </div>
                 </div>
-                <div className={cx("comments")}>
-                    {taskItem.comments.map((comment) => (
-                        <Comment key={comment.id} {...comment} />
-                    ))}
-                    <div className={cx("add-comment")}>
-                        <img className={cx("image")} src={userImage} alt="Me" />
-                        <input
-                            className={cx("input")}
-                            type="text"
-                            onChange={(e) => setValue(e.target.value)}
-                            value={value}
-                            placeholder="Add a comment..."
-                        />
-                        <span
-                            className={cx("icon", "submit", {
-                                disable: value.trim().length === 0,
-                            })}
-                        >
-                            <BsFillArrowUpCircleFill />
-                        </span>
-                    </div>
-                </div>
+                <Comments idTaskItem={idTaskItem} taskItem={taskItem} />
                 <SubTasks idTaskItem={idTaskItem} taskItem={taskItem} />
             </div>
         </Modal>
@@ -101,6 +73,7 @@ ModalDetail.propTypes = {
     status: PropTypes.string.isRequired,
     label: PropTypes.string.isRequired,
     task: PropTypes.string.isRequired,
+    createDate: PropTypes.string.isRequired,
 };
 
 export default ModalDetail;

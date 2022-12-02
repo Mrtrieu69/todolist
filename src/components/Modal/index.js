@@ -1,6 +1,6 @@
 import classNames from "classnames/bind";
 import PropTypes from "prop-types";
-// import { useEffect } from "react";
+import { useEffect } from "react";
 import { createPortal } from "react-dom";
 
 import styles from "./Modal.module.scss";
@@ -16,23 +16,24 @@ if (!modalRoot) {
     modalRoot = modalRootDiv;
 }
 
-const Modal = ({ onClose, children }) => {
-    // useEffect(() => {
-    //     const handleKeydown = (e) => {
-    //         if (e.code === "Escape") {
-    //             onClose();
-    //         }
-    //     };
+const Modal = ({ onClose, children, disableEsc = false }) => {
+    useEffect(() => {
+        const handleKeydown = (e) => {
+            if (e.code === "Escape") {
+                onClose();
+            }
+        };
+        if (!disableEsc) document.addEventListener("keydown", handleKeydown);
 
-    //     document.addEventListener("keydown", handleKeydown);
-
-    //     return () => document.removeEventListener("keydown", handleKeydown);
-    // });
+        return () => {
+            if (!disableEsc) document.removeEventListener("keydown", handleKeydown);
+        };
+    });
 
     return createPortal(
         <div className={cx("wrapper")}>
             <div onClick={onClose} className={cx("layout")}></div>
-            {children}
+            <div className={cx("content")}>{children}</div>
         </div>,
         modalRoot
     );
@@ -41,6 +42,7 @@ const Modal = ({ onClose, children }) => {
 Modal.propTypes = {
     onClose: PropTypes.func.isRequired,
     children: PropTypes.node.isRequired,
+    disableEsc: PropTypes.bool,
 };
 
 export default Modal;

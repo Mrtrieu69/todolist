@@ -39,3 +39,31 @@ export const addSubTaskItem = (payload) => {
         payload,
     };
 };
+
+export const addComment = (payload) => {
+    return {
+        type: "ADD_COMMENT",
+        payload,
+    };
+};
+
+export const addReplyComment = (payload) => {
+    return {
+        type: "ADD_REPLY_COMMENT",
+        payload,
+    };
+};
+
+export const deleteComment = (payload) => {
+    return {
+        type: "DELETE_COMMENT",
+        payload,
+    };
+};
+
+export const deleteReplyComment = (payload) => {
+    return {
+        type: "DELETE_REPLY_COMMENT",
+        payload,
+    };
+};

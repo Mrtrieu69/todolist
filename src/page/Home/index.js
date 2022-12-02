@@ -16,7 +16,7 @@ const Home = () => {
     const [isShowModalDelete, setIsShowModalDelete] = useState(false);
     const [currentSelected, setCurrentSelected] = useState(null);
 
-    const projects = useSelector((state) => state.project);
+    const projects = useSelector((state) => state.projects);
 
     const handleShowModalDelete = (project) => {
         setIsShowModalDelete(true);

@@ -146,3 +146,23 @@
     width: 100%;
     font-size: 1.6rem;
 }
+
+.detail-quantity {
+    display: flex;
+}
+
+.comment-quantity {
+    margin-top: 8px;
+    color: var(--text-second);
+    font-size: 1.4rem;
+    display: flex;
+    align-items: center;
+    margin-right: 12px;
+}
+
+.comment-icon {
+    display: inline-flex;
+    justify-self: center;
+    align-items: center;
+    margin-right: 4px;
+}
