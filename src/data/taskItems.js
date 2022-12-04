@@ -6,7 +6,7 @@ const TASK_ITEMS_DEFAULT = {
             {
                 id: getRandomId(),
                 text: "It's in the shared folder of the group",
-                createDate: "December 1, 2022 21:45:23",
+                createDate: "December 3, 2022 11:45:23",
                 replies: [],
             },
         ],
@@ -21,17 +21,17 @@ const TASK_ITEMS_DEFAULT = {
             {
                 id: getRandomId(),
                 text: "Could'n do the 23rd exercise",
-                createDate: "December 1, 2022 21:45:23",
+                createDate: "December 4, 2022 23:45:23",
                 replies: [
                     {
                         id: getRandomId(),
                         text: "Found a solution in VK",
-                        createDate: "December 1, 2022 21:50:10",
+                        createDate: "December 4, 2022 23:50:10",
                     },
                     {
                         id: getRandomId(),
                         text: "Done!",
-                        createDate: "December 1, 2022 21:55:10",
+                        createDate: "December 4, 2022 23:55:10",
                     },
                 ],
             },

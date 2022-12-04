@@ -7,7 +7,7 @@ const useOutsideClick = (
     setShowAction,
     setValue,
     value = "",
-    noSubmitWhenClickOutside = false
+    submitWhenClickOutside = true
 ) => {
     const ref = useRef();
 
@@ -16,7 +16,7 @@ const useOutsideClick = (
             if (ref.current && !ref.current.contains(event.target)) {
                 setShowAction(false);
                 setValue(value);
-                if (noSubmitWhenClickOutside) return;
+                if (!submitWhenClickOutside) return;
                 handleAction();
             }
         };
@@ -59,7 +59,7 @@ useOutsideClick.propTypes = {
     setValue: PropTypes.func.isRequired,
     setShowAction: PropTypes.func.isRequired,
     value: PropTypes.string,
-    noSubmitWhenClickOutside: PropTypes.bool,
+    submitWhenClickOutside: PropTypes.bool,
 };
 
 export default useOutsideClick;

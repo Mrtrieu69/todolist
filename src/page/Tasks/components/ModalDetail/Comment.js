@@ -62,7 +62,7 @@ const Comment = ({ text, id, replies = [], createDate, idTaskItem }) => {
         setShowReply,
         setValue,
         "",
-        true
+        false
     );
 
     return (
