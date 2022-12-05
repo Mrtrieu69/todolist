@@ -117,8 +117,12 @@ const TaskItem = ({ task, index, id, idList, status, label, createDate, endDate 
                                         onClick={() => setShowDetail(true)}
                                         className={cx("task")}
                                     >
-                                        <span className={cx("order")}>{index + 1}.</span>
-                                        {task}
+                                        <div className={cx("task-info")}>
+                                            <span className={cx("order")}>
+                                                {index + 1}.
+                                            </span>
+                                            <p className={cx("text-task")}>{task}</p>
+                                        </div>
                                         <div className={cx("detail-quantity")}>
                                             {currentTaskItem.comments.length > 0 && (
                                                 <div className={cx("comment-quantity")}>

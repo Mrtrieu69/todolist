@@ -23,10 +23,12 @@
 }
 
 .content {
+    max-height: calc(100vh - 48px);
+    overflow-y: overlay;
     position: relative;
     -webkit-animation: fade-down 0.3s ease;
     animation: fade-down 0.3s ease;
-    width: calc(100% - 24px);
+    width: calc(100% - 48px);
 
     @media (min-width: 740px) and (max-width: 1023px) {
         width: 60%;

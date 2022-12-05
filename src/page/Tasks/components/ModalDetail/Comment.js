@@ -112,7 +112,7 @@ const Comment = ({ text, id, replies = [], createDate, idTaskItem }) => {
                 </div>
             ))}
             {showReply && (
-                <div ref={ref} className={cx("add-comment")}>
+                <div ref={ref} className={cx("comment", "add-comment")}>
                     <img className={cx("image")} src={userImage} alt="Me" />
                     <input
                         ref={inputRef}

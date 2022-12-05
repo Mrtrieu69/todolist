@@ -94,16 +94,29 @@
         content: "";
         display: block;
         position: absolute;
-        top: -20px;
-        left: -38px;
-        width: 55px;
-        height: 16px;
+        top: -27px;
+        left: -20px;
+        width: 16px;
+        height: 40px;
         border: solid rgb(204, 204, 204);
-        border-width: 0 2px 2px 0;
-        -webkit-transform: rotate(90deg);
-        -ms-transform: rotate(90deg);
-        transform: rotate(90deg);
-        border-radius: 0 0 6px 0;
+        border-width: 0 0 2px 2px;
+        border-radius: 0 0 0 6px;
+    }
+
+    & .comment:not(:last-of-type)::after {
+        content: "";
+        display: block;
+        position: absolute;
+        top: 0;
+        left: -20px;
+        width: 0;
+        height: 100%;
+        border-left: 2px solid rgb(204, 204, 204);
+        z-index: 8;
+    }
+
+    & .comment:last-of-type::after {
+        background-color: rgb(255, 0, 0);
     }
 
     & .add-comment {
@@ -141,6 +154,7 @@
     margin-bottom: 4px;
     margin-left: 28px;
     color: #37352f;
+    word-break: break-all;
 }
 
 .actions {
@@ -207,9 +221,7 @@
 }
 
 .submit {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
+    display: inline-flex;
     font-size: 2rem;
     cursor: pointer;
     color: #2383e2;
@@ -266,6 +278,7 @@
 .label {
     position: relative;
     margin-left: 40px;
+    height: 26px;
     cursor: pointer;
 
     &::before {
@@ -303,6 +316,7 @@
     -ms-flex: 1;
     flex: 1;
     padding: 4px 0;
+    word-break: break-all;
 }
 
 .checkbox {
@@ -330,6 +344,7 @@
     -ms-transform: translateY(-50%);
     transform: translateY(-50%);
     right: 12px;
+    background-color: #fff;
     display: none;
     -webkit-box-pack: center;
     -ms-flex-pack: center;
