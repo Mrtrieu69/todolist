@@ -59,6 +59,7 @@ const TaskItem = ({
     const handleDeleteTask = () => {
         dispatch(deleteTask({ id, flag, idList }));
         dispatch(deleteTaskItem(id));
+        setShowModalDelete(false);
     };
 
     const handleEdit = () => {

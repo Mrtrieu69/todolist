@@ -52,6 +52,7 @@
     }
 
     &.priority {
+        text-transform: capitalize;
         cursor: pointer;
         position: relative;
         text-align: start;
@@ -119,6 +120,7 @@
 }
 
 .item {
+    text-transform: capitalize;
     padding: 12px;
     text-align: start;
 

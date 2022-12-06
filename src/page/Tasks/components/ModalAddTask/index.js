@@ -15,13 +15,13 @@ import { BsChevronDown } from "react-icons/bs";
 
 const cx = classNames.bind(styles);
 
-const PRIORITIES = [{ title: "Low" }, { title: "Medium" }, { title: "Hight" }];
+const PRIORITIES = [{ title: "low" }, { title: "medium" }, { title: "hight" }];
 
 const ModalAddTask = ({ idList, onClose }) => {
     const [title, setTitle] = useState("");
     const [desc, setDesc] = useState("");
     const [showPriorities, setShowPriorities] = useState(false);
-    const [currentPriority, setCurrentPriority] = useState("Medium");
+    const [currentPriority, setCurrentPriority] = useState("medium");
 
     const { flag } = useParams();
     const dispatch = useDispatch();
