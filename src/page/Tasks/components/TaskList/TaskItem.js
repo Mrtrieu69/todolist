@@ -34,7 +34,18 @@ const getQuantityComment = (currentComments) => {
     return count;
 };
 
-const TaskItem = ({ task, index, id, idList, status, label, createDate, endDate }) => {
+const TaskItem = ({
+    task,
+    index,
+    id,
+    idList,
+    status,
+    label,
+    createDate,
+    endDate,
+    desc,
+    priority,
+}) => {
     const [showEdit, setShowEdit] = useState(false);
     const [showDetail, setShowDetail] = useState(false);
     const [showModalDelete, setShowModalDelete] = useState(false);
@@ -169,6 +180,8 @@ const TaskItem = ({ task, index, id, idList, status, label, createDate, endDate 
                                 task={task}
                                 createDate={createDate}
                                 endDate={endDate}
+                                desc={desc}
+                                priority={priority}
                             />
                         )}
                         {showModalDelete && (
@@ -194,6 +207,8 @@ TaskItem.propTypes = {
     label: PropTypes.string,
     createDate: PropTypes.string,
     endDate: PropTypes.string,
+    desc: PropTypes.string,
+    priority: PropTypes.string,
 };
 
 export default TaskItem;

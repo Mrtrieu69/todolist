@@ -8,12 +8,16 @@ const TASKS_DEFAULT = {
                 {
                     id: "784628365",
                     task: "Do the 1st lab in computer science",
+                    desc: "Description for this task",
+                    priority: "low",
                     createDate: "December 3, 2022 9:15",
                     endDate: null,
                 },
                 {
                     id: "8678565412",
                     task: "Learn 30 new words",
+                    desc: "Description for this task",
+                    priority: "medium",
                     createDate: "December 5, 2022 00:50",
                     endDate: null,
                 },
@@ -27,6 +31,8 @@ const TASKS_DEFAULT = {
                 {
                     id: "22635345",
                     task: "Do homework in english",
+                    desc: "Description for this task",
+                    priority: "hight",
                     createDate: "December 4, 2022 23:40",
                     endDate: null,
                 },
@@ -40,6 +46,8 @@ const TASKS_DEFAULT = {
                 {
                     id: "65978373",
                     task: "Write a report on the Internet of things",
+                    desc: "Description for this task",
+                    priority: "low",
                     createDate: "December 4, 2022 19:23",
                     endDate: "December 4, 2022 22:44",
                 },

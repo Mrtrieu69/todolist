@@ -10,7 +10,13 @@ import Comments from "./Comments";
 import { getTimeToX } from "../../../../utils";
 
 // icons
-import { BsCalendarDate, BsCalendarCheck, BsClock, BsPlayCircle } from "react-icons/bs";
+import {
+    BsCalendarDate,
+    BsCalendarCheck,
+    BsClock,
+    BsPlayCircle,
+    BsExclamationDiamond,
+} from "react-icons/bs";
 
 const cx = classNames.bind(styles);
 
@@ -22,17 +28,21 @@ const ModalDetail = ({
     task,
     createDate,
     endDate,
+    desc,
+    priority,
 }) => {
     const taskItems = useSelector((state) => state.taskItems);
     const taskItem = taskItems[idTaskItem];
 
+    console.log(desc, priority);
+
     const DETAILS = [
-        { Icon: BsCalendarDate, label: "Date Created", time: createDate },
-        { Icon: BsCalendarCheck, label: "Date Finished", time: endDate },
+        { Icon: BsCalendarDate, label: "Date Created", value: createDate },
+        { Icon: BsCalendarCheck, label: "Date Finished", value: endDate },
         {
             Icon: BsClock,
             label: "Time at work",
-            time: getTimeToX(createDate, endDate),
+            value: getTimeToX(createDate, endDate),
         },
     ];
 
@@ -44,6 +54,7 @@ const ModalDetail = ({
         <Modal onClose={onClose}>
             <div className={cx("content")}>
                 <h2 className={cx("title")}>{task}</h2>
+                <p className={cx("desc")}>{desc}</p>
                 <div className={cx("details")}>
                     {DETAILS.map((detail, id) => {
                         const Icon = detail.Icon;
@@ -56,7 +67,7 @@ const ModalDetail = ({
                                     </span>
                                     {detail.label}
                                 </div>
-                                <div className={cx("item", "text")}>{detail.time}</div>
+                                <div className={cx("item", "text")}>{detail.value}</div>
                             </div>
                         );
                     })}
@@ -77,6 +88,23 @@ const ModalDetail = ({
                             </span>
                         </div>
                     </div>
+                    <div className={cx("detail")}>
+                        <div className={cx("item")}>
+                            <span className={cx("icon")}>
+                                <BsExclamationDiamond />
+                            </span>
+                            Priority
+                        </div>
+                        <div className={cx("item")}>
+                            <span
+                                className={cx("priority", {
+                                    [priority]: priority,
+                                })}
+                            >
+                                {priority}
+                            </span>
+                        </div>
+                    </div>
                 </div>
                 <Comments idTaskItem={idTaskItem} taskItem={taskItem} />
                 <SubTasks idTaskItem={idTaskItem} taskItem={taskItem} />
@@ -93,6 +121,8 @@ ModalDetail.propTypes = {
     task: PropTypes.string.isRequired,
     createDate: PropTypes.string,
     endDate: PropTypes.any,
+    desc: PropTypes.string,
+    priority: PropTypes.string,
 };
 
 export default ModalDetail;

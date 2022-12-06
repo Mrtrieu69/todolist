@@ -12,8 +12,13 @@
 
 .title {
     font-size: 3.2rem;
-    margin-bottom: 24px;
     color: #37352f;
+}
+
+.desc {
+    color: #37352f;
+    margin-top: 8px;
+    margin-bottom: 12px;
 }
 
 .details {
@@ -62,7 +67,7 @@
 
     &.queue {
         color: rgb(93, 23, 21);
-        background-color: rgb(255, 226, 221);
+        background: rgb(255, 226, 221);
     }
 
     &.development {
@@ -73,6 +78,27 @@
     &.done {
         color: rgb(28, 56, 41);
         background: rgb(219, 237, 219);
+    }
+}
+
+.priority {
+    padding: 0 4px 2px;
+    border-radius: 4px;
+    text-transform: capitalize;
+
+    &.low {
+        color: #fff;
+        background: #70c32b;
+    }
+
+    &.medium {
+        color: rgb(125, 125, 125);
+        background: #fec81e;
+    }
+
+    &.hight {
+        color: #fff;
+        background: #fe102a;
     }
 }
 
