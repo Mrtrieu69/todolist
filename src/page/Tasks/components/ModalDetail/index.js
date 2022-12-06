@@ -34,8 +34,6 @@ const ModalDetail = ({
     const taskItems = useSelector((state) => state.taskItems);
     const taskItem = taskItems[idTaskItem];
 
-    console.log(desc, priority);
-
     const DETAILS = [
         { Icon: BsCalendarDate, label: "Date Created", value: createDate },
         { Icon: BsCalendarCheck, label: "Date Finished", value: endDate },
