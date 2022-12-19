@@ -1,1 +1,1 @@
-Ссылка на приложение: https://todolist-uptrader.vercel.app/ 😃
+Ссылка на приложение: https://spa-todolist-uptrader.vercel.app/ 😃
